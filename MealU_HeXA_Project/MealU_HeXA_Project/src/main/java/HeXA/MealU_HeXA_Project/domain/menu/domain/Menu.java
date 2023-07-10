@@ -1,5 +1,7 @@
 package HeXA.MealU_HeXA_Project.domain.menu.domain;
 
+import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
+import HeXA.MealU_HeXA_Project.domain.menuAndAllergyRelationship.domain.MenuAndAllergyRelationship;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.CascadeType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
@@ -22,4 +25,9 @@ public class Menu {
     @Column
     private String name;
 
+    @OneToMany(mappedBy = "menu")
+    private List<MealTableAndMenuRelationship> relationshipsWithMealTable = new ArrayList<>();
+
+    @OneToMany(mappedBy = "menu")
+    private List<MenuAndAllergyRelationship> relationshipsWithAllergy = new ArrayList<>();
 }
