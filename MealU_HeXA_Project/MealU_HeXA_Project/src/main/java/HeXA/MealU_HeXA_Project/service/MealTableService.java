@@ -15,4 +15,6 @@ public class MealTableService {
         this.mealTableRepository = mealTableRepository;
         this.mealTableAndMenuRelationshipRepository = mealTableAndMenuRelationshipRepository;
     }
+
+
 }

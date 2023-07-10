@@ -5,6 +5,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class MenuRepositoryImpl implements MealTableRepositoryCustom {
+public class MenuRepositoryImpl implements MenuRepositoryCustom {
     private JPAQueryFactory queryFactory;
 }
