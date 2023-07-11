@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MealU_HeXA_Project.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MealU_HeXA_Project.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/unistMeal-backend.iml" filepath="$PROJECT_DIR$/.idea/unistMeal-backend.iml" />
     </modules>
   </component>
 </project>
