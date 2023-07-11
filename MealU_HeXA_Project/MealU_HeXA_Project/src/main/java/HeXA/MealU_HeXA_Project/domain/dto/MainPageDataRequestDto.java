@@ -1,8 +1,8 @@
 package HeXA.MealU_HeXA_Project.domain.dto;
 
 import HeXA.MealU_HeXA_Project.domain.menu.domain.Menu;
-import HeXA.MealU_HeXA_Project.domain.types.DayType;
-import HeXA.MealU_HeXA_Project.domain.types.MealType;
+import HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType;
+import HeXA.MealU_HeXA_Project.domain.mealTable.model.MealType;
 import lombok.Getter;
 import lombok.Setter;
 

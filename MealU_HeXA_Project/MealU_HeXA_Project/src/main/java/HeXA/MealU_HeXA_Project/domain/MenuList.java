@@ -1,7 +1,7 @@
 package HeXA.MealU_HeXA_Project.domain;
 
 import HeXA.MealU_HeXA_Project.domain.menu.domain.Menu;
-import HeXA.MealU_HeXA_Project.domain.types.DayType;
+import HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.CascadeType;

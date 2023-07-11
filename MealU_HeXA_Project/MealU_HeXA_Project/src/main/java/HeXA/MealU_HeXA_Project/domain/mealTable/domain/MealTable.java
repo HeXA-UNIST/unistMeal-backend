@@ -1,5 +1,7 @@
 package HeXA.MealU_HeXA_Project.domain.mealTable.domain;
 
+import HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType;
+import HeXA.MealU_HeXA_Project.domain.mealTable.model.MealType;
 import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +32,8 @@ public class MealTable {
     @OneToMany(mappedBy = "meal_table")
     private List<MealTableAndMenuRelationship> relationshipsWithMenu = new ArrayList<>();
 
-//    @ManyToOne
-//    private DayType dayType;
-//    @ManyToOne
-//    private MealType mealType;
+    @ManyToOne
+    private DayType dayType;
+    @ManyToOne
+    private MealType mealType;
 }

@@ -1,4 +1,4 @@
-package HeXA.MealU_HeXA_Project.domain.types;
+package HeXA.MealU_HeXA_Project.domain.mealTable.model;
 
 public enum MealType {
     BREAKFAST("아침밥"),
