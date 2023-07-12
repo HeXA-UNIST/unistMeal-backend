@@ -5,6 +5,7 @@ import HeXA.MealU_HeXA_Project.domain.mealTable.model.MealType;
 import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.Column;
@@ -19,12 +20,16 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class MealTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mealTable_id")
     private Long id;
+
+    @Comment(value = "식당 종류")
+    private String restaurantType;
 
     @Comment(value = "날짜")
     private String date;
@@ -36,4 +41,7 @@ public class MealTable {
     private DayType dayType;
     @ManyToOne
     private MealType mealType;
+
+    @Comment("칼로리")
+    private Long calories;
 }
