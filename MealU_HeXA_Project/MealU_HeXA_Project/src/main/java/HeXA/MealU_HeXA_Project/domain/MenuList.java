@@ -41,20 +41,17 @@ public class MenuList {
     @Column
     private String time;
 
-    @Comment(value = "메뉴")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Menu> menuList;
+
 
     @Comment(value = "칼로리")
     @Column
     private Long calorie;
-    public MenuList(String menuType, String date, DayType dayType, Long price, String time, List<Menu> menuList, Long calories) {
+    public MenuList(String menuType, String date, DayType dayType, Long price, String time, Long calories) {
         this.menuType = menuType;
         this.date = date;
         this.dayType = dayType;
         this.price = price;
         this.time = time;
-        this.menuList = menuList;
         this.calorie = calories;
     }
 }
