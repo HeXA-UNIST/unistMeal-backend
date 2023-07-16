@@ -4,17 +4,20 @@ import lombok.Getter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 public class ExcelParser {
     private Sheet worksheet;
-
+    d
     private static final int DormitoryStartRow = 6;
     private static final int StudentAndProfessorStartRow = 5;
-
+    private static final int RestaurantTypeRow = 1;
 
     private static final int MondayColNum = 5;
     private static final int TuesdayColNum = 7;
@@ -44,13 +47,13 @@ public class ExcelParser {
 
 
         // 엑셀의 첫 번째 Row를 통해 식당 종류를 분류함.
-        Row firstRow = worksheet.getRow(1);
-        if (firstRow.getCell(1).getStringCellValue() == "301동 기숙사식당 식단표") {
+        Row restaurantTypeRow = worksheet.getRow(RestaurantTypeRow);
+        if (restaurantTypeRow.getCell(1).getStringCellValue() == "301동 기숙사식당 식단표") {
             this.restaurantType = "기숙사 식당";
             startLowNum = DormitoryStartRow; // 기숙사 식당 => day 7개
             colList = new ArrayList<>(Arrays.asList(MondayColNum, TuesdayColNum, WednesdayColNum
                     , ThursdayColNum, FridayColNum, SaturdayColNum, SundayColNum));
-        } else if (firstRow.getCell(1).getStringCellValue() == "203동 학생식당 주간식단표") {
+        } else if (restaurantTypeRow.getCell(1).getStringCellValue() == "203동 학생식당 주간식단표") {
             this.restaurantType = "학생 식당";
             startLowNum = StudentAndProfessorStartRow; // 학생 식당 => day 5개
             colList = new ArrayList<>(Arrays.asList(MondayColNum, TuesdayColNum, WednesdayColNum
@@ -64,9 +67,12 @@ public class ExcelParser {
 
         }
         // 일주일 == 7 days를 만든다.
-        List<Day> days = new ArrayList<>(Arrays.asList(new Day(), new Day(), new Day(), new Day(), new Day(),
-                new Day(), new Day()));
-        int numOfRowsInSheet = worksheet.getPhysicalNumberOfRows();
+
+        List<Day> days = Stream.iterate(new Day(), i -> i).limit(7).collect(Collectors.toList());
+
+        int numOfRowsInSheet = worksheet.getPhysicalNumberOfRows()
+
+
         for (int i = startLowNum; i < numOfRowsInSheet; i++) {
             Row row = worksheet.getRow(i);
             for (Integer colNum : colList) {
