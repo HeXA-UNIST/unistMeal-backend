@@ -28,4 +28,8 @@ public class MealTableAndMenuRelationship {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
+    public MealTableAndMenuRelationship(MealTable mealTable, Menu menu) {
+        this.mealTable = mealTable;
+        this.menu = menu;
+    }
 }

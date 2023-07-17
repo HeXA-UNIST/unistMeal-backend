@@ -3,10 +3,8 @@ package HeXA.MealU_HeXA_Project.domain.mealTable.domain;
 import HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType;
 import HeXA.MealU_HeXA_Project.domain.mealTable.model.MealType;
 import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.Column;
@@ -46,4 +44,14 @@ public class MealTable {
     private Long calories;
 
 
+    public MealTable(String restaurantType, String date, DayType dayType, MealType mealType) {
+
+        this.restaurantType = restaurantType;
+        this.date = date;
+        this.dayType = dayType;
+        this.mealType = mealType;
+    }
+    public void setCalories(Long calories){
+        this.calories = calories;
+    }
 }

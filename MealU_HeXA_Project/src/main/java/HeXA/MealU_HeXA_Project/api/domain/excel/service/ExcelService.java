@@ -3,6 +3,7 @@ package HeXA.MealU_HeXA_Project.api.domain.excel.service;
 import HeXA.MealU_HeXA_Project.api.common.parseClass.DBWriter;
 import HeXA.MealU_HeXA_Project.api.common.parseClass.ExcelParser;
 import HeXA.MealU_HeXA_Project.domain.mealTable.repository.MealTableRepository;
+import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.repository.MealTableAndMenuRelationshipRepository;
 import HeXA.MealU_HeXA_Project.domain.menu.repository.MenuRepository;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -20,9 +21,13 @@ public class ExcelService {
     private final MealTableRepository mealTableRepository;
     private final MenuRepository menuRepository;
 
-    public ExcelService(MealTableRepository mealTableRepository, MenuRepository menuRepository) {
+    private final MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository;
+
+    public ExcelService(MealTableRepository mealTableRepository, MenuRepository menuRepository
+            , MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository) {
         this.mealTableRepository = mealTableRepository;
         this.menuRepository = menuRepository;
+        this.mealTableAndMenuRelationshipRepository = mealTableAndMenuRelationshipRepository;
     }
 
     public void importExcel(MultipartFile file) throws IOException {
@@ -48,6 +53,6 @@ public class ExcelService {
     @Transactional
     public void writeOnRepository(ExcelParser excelParser) {
         DBWriter writer = new DBWriter(excelParser);
-        writer.save(mealTableRepository, menuRepository);
+        writer.save(mealTableRepository, menuRepository, mealTableAndMenuRelationshipRepository);
     }
 }

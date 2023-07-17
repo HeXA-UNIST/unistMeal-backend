@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,7 +15,7 @@ import java.util.stream.Stream;
 @Getter
 public class ExcelParser {
     private Sheet worksheet;
-    d
+
     private static final int DormitoryStartRow = 6;
     private static final int StudentAndProfessorStartRow = 5;
     private static final int RestaurantTypeRow = 1;
@@ -27,8 +28,10 @@ public class ExcelParser {
     private static final int SaturdayColNum = 15;
     private static final int SundayColNum = 17;
 
+    private static final int weekNumber = 7;
 
-    private List<Day> days;
+
+    private List<List<String>> days;
     private String restaurantType;
 
     public ExcelParser(Sheet worksheet) {
@@ -68,9 +71,13 @@ public class ExcelParser {
         }
         // 일주일 == 7 days를 만든다.
 
-        List<Day> days = Stream.iterate(new Day(), i -> i).limit(7).collect(Collectors.toList());
+        List<List<String>> days = new ArrayList<>();
 
-        int numOfRowsInSheet = worksheet.getPhysicalNumberOfRows()
+
+        for(int i = 0; i < weekNumber; i++){
+            days.add(new ArrayList<String>());
+        }
+        int numOfRowsInSheet = worksheet.getPhysicalNumberOfRows();
 
 
         for (int i = startLowNum; i < numOfRowsInSheet; i++) {
@@ -84,7 +91,6 @@ public class ExcelParser {
                  이렇게 계산하면 차례대로 Mon, Tues, Wed.. 가 인덱스로 들어가게 됨.
                 */
                 days.get(changeColNumIntoIndex(colNum))
-                        .getRows()
                         .add(row.getCell(colNum)
                                 .getStringCellValue()
                         ); // 이렇게 하면 한 day(column)에 해당하는 모든 string이 들어가게 될 것.
