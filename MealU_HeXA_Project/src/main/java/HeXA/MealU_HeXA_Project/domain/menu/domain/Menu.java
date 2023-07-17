@@ -2,7 +2,6 @@ package HeXA.MealU_HeXA_Project.domain.menu.domain;
 
 import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
 import HeXA.MealU_HeXA_Project.domain.menuAndAllergyRelationship.domain.MenuAndAllergyRelationship;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -36,4 +35,7 @@ public class Menu {
     private List<MenuAndAllergyRelationship> relationshipsWithAllergy = new ArrayList<>();
 
 
+    public Menu(String name) {
+        this.name = name;
+    }
 }
