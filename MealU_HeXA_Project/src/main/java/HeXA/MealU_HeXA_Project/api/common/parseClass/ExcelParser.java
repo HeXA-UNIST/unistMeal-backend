@@ -1,16 +1,14 @@
 package HeXA.MealU_HeXA_Project.api.common.parseClass;
 
 import lombok.Getter;
+import org.apache.poi.ss.usermodel.CellRange;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellRangeAddress;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Getter
 public class ExcelParser {
@@ -19,8 +17,10 @@ public class ExcelParser {
     private static final int DormitoryStartRow = 6;
     private static final int StudentAndProfessorStartRow = 5;
 
-    private static final int RestaurantTypeRow = 1;
+    private static final int RestaurantTypeRow = 2;
     private static final int RestaurantTypeCell = 1;
+
+    private static final int NullColumnNumber = 6;
 
     private static final int MondayColNum = 5;
     private static final int TuesdayColNum = 7;
@@ -47,28 +47,29 @@ public class ExcelParser {
          기숙사 식당이면 5, 7, 9, 11, 13, 15, 17
          나머지는 5, 7, 9, 11, 13 까지
         */
+        worksheet.getNumMergedRegions();
 
         List<Integer> colList;
 
 
         // 엑셀의 첫 번째 Row를 통해 식당 종류를 분류함.
         Row restaurantTypeRow = worksheet.getRow(RestaurantTypeRow);
-        if (restaurantTypeRow.getCell(RestaurantTypeRow).getStringCellValue() == "301동 기숙사식당 식단표") {
-            this.restaurantType = "기숙사 식당";
-            startRowNum = DormitoryStartRow; // 기숙사 식당 => day 7개
+        if (restaurantTypeRow.getCell(RestaurantTypeCell).getStringCellValue() == "201동 교직원식당 주간식단표") {
+            this.restaurantType = "교직원 식당";
+            startRowNum = StudentAndProfessorStartRow; // 교직원 식당 => day 5개
             colList = new ArrayList<>(Arrays.asList(MondayColNum, TuesdayColNum, WednesdayColNum
-                    , ThursdayColNum, FridayColNum, SaturdayColNum, SundayColNum));
-        } else if (restaurantTypeRow.getCell(RestaurantTypeRow).getStringCellValue() == "203동 학생식당 주간식단표") {
+                    , ThursdayColNum, FridayColNum));
+        } else if (restaurantTypeRow.getCell(RestaurantTypeCell).getStringCellValue() == "203동 학생식당 주간식단표") {
             this.restaurantType = "학생 식당";
             startRowNum = StudentAndProfessorStartRow; // 학생 식당 => day 5개
             colList = new ArrayList<>(Arrays.asList(MondayColNum, TuesdayColNum, WednesdayColNum
                     , ThursdayColNum, FridayColNum));
         } else {
-            // 교직원 식당
-            this.restaurantType = "교직원 식당";
-            startRowNum = StudentAndProfessorStartRow; // 교직원 식당 => day 5개
+            // 기숙사 식당
+            this.restaurantType = "기숙사 식당";
+            startRowNum = DormitoryStartRow; // 기숙사 식당 => day 7개
             colList = new ArrayList<>(Arrays.asList(MondayColNum, TuesdayColNum, WednesdayColNum
-                    , ThursdayColNum, FridayColNum));
+                    , ThursdayColNum, FridayColNum, SaturdayColNum, SundayColNum));
 
         }
         // 일주일 == 7 days를 만든다.
@@ -76,7 +77,7 @@ public class ExcelParser {
         List<List<String>> days = new ArrayList<>();
 
 
-        for(int i = 0; i < weekNumber; i++){
+        for (int i = 0; i < weekNumber; i++) {
             days.add(new ArrayList<String>());
         }
         int numOfRowsInSheet = worksheet.getPhysicalNumberOfRows();
@@ -84,6 +85,9 @@ public class ExcelParser {
 
         for (int i = startRowNum; i < numOfRowsInSheet; i++) {
             Row row = worksheet.getRow(i);
+            if(isMerged(worksheet, i, MondayColNum)) // Merged Row인지 판별해주는 코드
+                continue;
+
             for (Integer colNum : colList) {
                 /*
                  5, 7, 9, 11.. 와 같은 정수를 0, 1, 2, 3라는 인덱스에 매핑시켜야한다.
@@ -103,5 +107,17 @@ public class ExcelParser {
 
     public int changeColNumIntoIndex(int colNum) {
         return colNum / 2 - 2;
+    }
+    public boolean isMerged(Sheet sheet, int rowIdx, int colIdx) {
+
+        for(int i = 0; i < sheet.getNumMergedRegions(); ++i)
+        {
+            CellRangeAddress range = sheet.getMergedRegion(i);
+
+            if( rowIdx >= range.getFirstRow() && rowIdx <= range.getLastRow() && colIdx >= range.getFirstColumn() && colIdx <= range.getLastColumn() ) {
+                return true;
+            }
+        }
+        return false;
     }
 }
