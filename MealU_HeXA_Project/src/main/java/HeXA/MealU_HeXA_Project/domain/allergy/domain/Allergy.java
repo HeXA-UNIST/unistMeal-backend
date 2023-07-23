@@ -21,9 +21,8 @@ import java.util.List;
 public class Allergy {
     @Id
     @Enumerated(EnumType.STRING)
-    @Column(length = 10)
     private AllergyType allergyType;
 
-    @OneToMany
-    private List<MenuAndAllergyRelationship> relationshipsWithMenu = new ArrayList<>();
+//    @OneToMany
+//    private List<MenuAndAllergyRelationship> relationshipsWithMenu = new ArrayList<>();
 }

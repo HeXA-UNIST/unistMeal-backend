@@ -6,27 +6,35 @@ import HeXA.MealU_HeXA_Project.domain.MenuList;
 import HeXA.MealU_HeXA_Project.domain.dto.AnnouncementRequestDto;
 import HeXA.MealU_HeXA_Project.domain.dto.ImageUrlsRequestDto;
 import HeXA.MealU_HeXA_Project.domain.dto.MainPageDataRequestDto;
+import HeXA.MealU_HeXA_Project.domain.mealTable.domain.MealTable;
+import HeXA.MealU_HeXA_Project.service.MealTableService;
+import HeXA.MealU_HeXA_Project.service.dto.MealTableDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Controller
 public class HomeController {
-    @GetMapping("/mainpage/data")
-    ResponseEntity<MenuList> menuListResponseEntity(@RequestBody MainPageDataRequestDto request){
-        return new ResponseEntity<>(new MenuList(request.getMenuType(), request.getDate(), request.getDayType(), request.getPrice(),
-                request.getTime(), request.getMenuList(), request.getCalories()), HttpStatus.OK);
-    }
+    private MealTableService mealTableService;
 
-    @GetMapping("/notice")
-    ResponseEntity<Announcement> announcementResponseEntity(@RequestBody AnnouncementRequestDto request){
-        return new ResponseEntity<>(new Announcement(request.getContent()), HttpStatus.OK);
-    }
-
-    @GetMapping("/image")
-    ResponseEntity<ImageUrls> imageUrlsResponseEntity(@RequestBody ImageUrlsRequestDto request){
-        return new ResponseEntity<>(new ImageUrls(request.getDormitoryUrl(), request.getStudentUrl(), request.getProfessorUrl()), HttpStatus.OK);
-    }
+//    @GetMapping("/mainpage/data")
+//    ResponseEntity<List<MealTableDto>> menuListResponseEntity(@RequestBody MainPageDataRequestDto request){
+//        List<MealTable> mealTables = mealTableService.findAllByDateAndRestaurantAndMealType();
+//
+//
+//    }
+//
+////    @GetMapping("/notice")
+////    ResponseEntity<Announcement> announcementResponseEntity(@RequestBody AnnouncementRequestDto request){
+////        return new ResponseEntity<>(new Announcement(request.getContent()), HttpStatus.OK);
+////    }
+////
+////    @GetMapping("/image")
+////    ResponseEntity<ImageUrls> imageUrlsResponseEntity(@RequestBody ImageUrlsRequestDto request){
+////        return new ResponseEntity<>(new ImageUrls(request.getDormitoryUrl(), request.getStudentUrl(), request.getProfessorUrl()), HttpStatus.OK);
+////    }
 }

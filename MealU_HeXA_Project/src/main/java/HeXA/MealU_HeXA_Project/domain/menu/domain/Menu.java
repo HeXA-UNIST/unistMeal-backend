@@ -28,8 +28,8 @@ public class Menu {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "menu")
-    private List<MealTableAndMenuRelationship> relationshipsWithMealTable = new ArrayList<>();
+//    @OneToMany(mappedBy = "menu")
+//    private List<MealTableAndMenuRelationship> relationshipsWithMealTable = new ArrayList<>();
 
     @OneToMany(mappedBy = "menu")
     private List<MenuAndAllergyRelationship> relationshipsWithAllergy = new ArrayList<>();

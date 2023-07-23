@@ -24,8 +24,8 @@ public class ExcelConfig {
 
     }
 
-    @Bean
-    public ExcelService excelService() {
-        return new ExcelService(this.mealTableRepository, this.menuRepository, this.mealTableAndMenuRelationshipRepository);
-    }
+//    @Bean
+//    public ExcelService excelService() {
+//        return new ExcelService(this.mealTableRepository, this.menuRepository, this.mealTableAndMenuRelationshipRepository);
+//    }
 }

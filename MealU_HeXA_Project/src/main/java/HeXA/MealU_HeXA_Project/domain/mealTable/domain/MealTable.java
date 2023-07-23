@@ -9,6 +9,9 @@ import org.hibernate.annotations.Comment;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,12 +35,15 @@ public class MealTable {
     @Comment(value = "날짜")
     private String date;
 
-    @OneToMany(mappedBy = "meal_table")
+    @OneToMany(mappedBy = "mealTable")
     private List<MealTableAndMenuRelationship> relationshipsWithMenu = new ArrayList<>();
 
-    @ManyToOne
+    @Comment("요일")
+    @Enumerated(EnumType.STRING)
     private DayType dayType;
-    @ManyToOne
+
+    @Comment("식사 종류")
+    @Enumerated(EnumType.STRING)
     private MealType mealType;
 
     @Comment("칼로리")

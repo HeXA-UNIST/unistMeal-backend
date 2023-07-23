@@ -22,4 +22,5 @@ public class MealTableRepositoryImpl implements MealTableRepositoryCustom {
                         mealTable.mealType.eq(mealType))
                 .fetchOne());
     }
+
 }

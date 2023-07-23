@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface MealTableRepositoryCustom {
 
     Optional<MealTable> findByDateAndRestaurantAndMealType(String date, String restaurantType, MealType mealType);
+
 }
