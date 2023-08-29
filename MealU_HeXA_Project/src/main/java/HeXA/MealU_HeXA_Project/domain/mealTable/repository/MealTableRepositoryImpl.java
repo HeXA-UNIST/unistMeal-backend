@@ -6,21 +6,22 @@ import HeXA.MealU_HeXA_Project.domain.mealTable.model.MealType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public class MealTableRepositoryImpl implements MealTableRepositoryCustom {
-    private JPAQueryFactory queryFactory;
+    private final JPAQueryFactory queryFactory;
 
     @Override
-    public Optional<MealTable> findByDateAndRestaurantAndMealType(String date, String restaurantType, MealType mealType) {
+    public List<MealTable> findByMonday(LocalDate date) {
+        // ??? + 6? ?? ??? ~ ???? ???? ?? ??? List? ????.
+        final Long numOfDaysToPlus = 6L;
         QMealTable mealTable = QMealTable.mealTable;
-        return Optional.ofNullable(queryFactory.selectFrom(mealTable)
-
-                .where(mealTable.date.eq(date),
-                        mealTable.restaurantType.eq(restaurantType),
-                        mealTable.mealType.eq(mealType))
-                .fetchOne());
+        return queryFactory.selectFrom(mealTable)
+                .where(mealTable.date.between(date, date.plusDays(numOfDaysToPlus)))
+                .fetch();
     }
 
 }

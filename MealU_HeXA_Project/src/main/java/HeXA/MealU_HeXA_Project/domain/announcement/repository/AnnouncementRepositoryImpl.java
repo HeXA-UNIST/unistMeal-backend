@@ -5,5 +5,5 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class AnnouncementRepositoryImpl implements AnnouncementRepositoryCustom{
-    private JPAQueryFactory queryFactory;
+    private final JPAQueryFactory queryFactory;
 }

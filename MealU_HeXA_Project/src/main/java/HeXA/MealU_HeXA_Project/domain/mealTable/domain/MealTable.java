@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class MealTable {
     private String restaurantType;
 
     @Comment(value = "날짜")
-    private String date;
+//    private String date;
+    private LocalDate date;
 
     @OneToMany(mappedBy = "mealTable")
     private List<MealTableAndMenuRelationship> relationshipsWithMenu = new ArrayList<>();
@@ -50,7 +52,7 @@ public class MealTable {
     private Long calories;
 
 
-    public MealTable(String restaurantType, String date, DayType dayType, MealType mealType) {
+    public MealTable(String restaurantType, LocalDate date, DayType dayType, MealType mealType) {
 
         this.restaurantType = restaurantType;
         this.date = date;

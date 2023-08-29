@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class MenuRepositoryImpl implements MenuRepositoryCustom {
-    private JPAQueryFactory queryFactory;
+    private final JPAQueryFactory queryFactory;
 }

@@ -11,13 +11,13 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class MealTableAndMenuRelationshipRepositoryImpl implements MealTableAndMenuRelationshipRepositoryCustom{
-    private JPAQueryFactory queryFactory;
+    private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<MealTableAndMenuRelationship> findByMealTable(MealTable argMealTable){
+    public List<MealTableAndMenuRelationship> findAllByMealTables(List<MealTable> mealTables){
         QMealTableAndMenuRelationship mealTableAndMenuRelationship= QMealTableAndMenuRelationship.mealTableAndMenuRelationship;
         return queryFactory.selectFrom(mealTableAndMenuRelationship)
-                .where(mealTableAndMenuRelationship.mealTable.eq(argMealTable))
+                .where(mealTableAndMenuRelationship.mealTable.in(mealTables))
                 .fetch();
     }
 }

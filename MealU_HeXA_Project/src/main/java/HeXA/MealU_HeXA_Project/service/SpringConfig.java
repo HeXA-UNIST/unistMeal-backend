@@ -34,19 +34,19 @@ public class SpringConfig {
         this.mealTableAndMenuRelationshipRepository = mealTableAndMenuRelationshipRepository;
     }
 
-    @Bean
-    public MealTableService mealTableService() {
-        return new MealTableService(mealTableRepository, mealTableAndMenuRelationshipRepository);
-    }
-
-    @Bean
-    public MenuService menuService(){
-        return new MenuService(menuRepository, mealTableAndMenuRelationshipRepository);
-    }
-
-    @Bean
-    public AllergyService allergyService(){return new AllergyService(allergyRepository, menuAndAllergyRelationshipRepository);}
-
+//    @Bean
+//    public MealTableService mealTableService() {
+//        return new MealTableService(mealTableRepository, mealTableAndMenuRelationshipRepository);
+//    }
+//
+//    @Bean
+//    public MenuService menuService(){
+//        return new MenuService(menuRepository, mealTableAndMenuRelationshipRepository);
+//    }
+//
+//    @Bean
+//    public AllergyService allergyService(){return new AllergyService(allergyRepository, menuAndAllergyRelationshipRepository);}
+//
 
 
 }

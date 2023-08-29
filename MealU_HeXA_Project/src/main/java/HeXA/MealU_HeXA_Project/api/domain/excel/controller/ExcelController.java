@@ -4,11 +4,13 @@ import HeXA.MealU_HeXA_Project.api.domain.excel.service.ExcelService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +19,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-@Controller
+@RestController
+@RequestMapping("/excel")
 public class ExcelController {
     private final ExcelService excelService;
 
@@ -26,27 +29,30 @@ public class ExcelController {
         this.excelService = excelService;
     }
 
-    @GetMapping("/excel")
-    public String main() {
+    @GetMapping("")
+    public ResponseEntity<String> main() {
 
-        return "excel";
+        return new ResponseEntity<>("excel", HttpStatus.OK);
     }
 
-    @PostMapping("/excel/read")
-    public ResponseEntity<Void> readExcel(@RequestParam("file") MultipartFile file) throws URISyntaxException {
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-
-        if (!extension.equals("xlsx") && !extension.equals("xls")) {
+    @PostMapping("/read")
+    public ResponseEntity<Void> readExcel(@RequestParam("dormitoryFile") MultipartFile dormitoryFile,
+                                          @RequestParam("studentFile") MultipartFile studentFile,
+                                          @RequestParam("professorFile") MultipartFile professorFile
+                                          ) throws URISyntaxException, IOException, InvalidFormatException {
+        String dormitoryExtension = FilenameUtils.getExtension(dormitoryFile.getOriginalFilename());
+        String studentExtension = FilenameUtils.getExtension(studentFile.getOriginalFilename());
+        String professorExtension = FilenameUtils.getExtension(professorFile.getOriginalFilename());
+        if (!dormitoryExtension.equals("xlsx") && !dormitoryExtension.equals("xls")) {
+            return ResponseEntity.badRequest().build();
+        }else if (!studentExtension.equals("xlsx") && !studentExtension.equals("xls")) {
+            return ResponseEntity.badRequest().build();
+        }else if (!professorExtension.equals("xlsx") && !professorExtension.equals("xls")) {
             return ResponseEntity.badRequest().build();
         }
-
-        try {
-            excelService.importExcel(file);
-        }catch(IOException e){
-            return ResponseEntity.badRequest().build();
-        } catch (InvalidFormatException e) {
-            throw new RuntimeException(e);
-        }
+        excelService.importExcel(dormitoryFile);
+        excelService.importExcel(studentFile);
+        excelService.importExcel(professorFile);
         return ResponseEntity.created(new URI("/importSuccess")).build();
 
 

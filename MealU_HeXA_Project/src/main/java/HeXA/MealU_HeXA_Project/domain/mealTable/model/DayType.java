@@ -9,6 +9,14 @@ public enum DayType {
     SAT("토요일"),
     SUN("일요일");
     private final String value;
+
+    public static final int MondayColNum = 4;
+    public static final int TuesdayColNum = 6;
+    public static final int WednesdayColNum = 8;
+    public static final int ThursdayColNum = 10;
+    public static final int FridayColNum = 12;
+    public static final int SaturdayColNum = 14;
+    public static final int SundayColNum = 16;
     DayType(String day) {
         this.value = day;
     }

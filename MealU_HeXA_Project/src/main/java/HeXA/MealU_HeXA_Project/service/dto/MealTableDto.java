@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -14,7 +15,7 @@ import java.util.List;
 public class MealTableDto {
     private String restaurantType;
 
-    private String date;
+    private LocalDate date;
 
     private DayType dayType;
 

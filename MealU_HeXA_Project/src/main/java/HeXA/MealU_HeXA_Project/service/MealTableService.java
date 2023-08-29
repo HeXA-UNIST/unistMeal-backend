@@ -1,8 +1,6 @@
 package HeXA.MealU_HeXA_Project.service;
 
-import HeXA.MealU_HeXA_Project.api.Utils.DateUtils;
 import HeXA.MealU_HeXA_Project.domain.mealTable.domain.MealTable;
-import HeXA.MealU_HeXA_Project.domain.mealTable.model.MealType;
 import HeXA.MealU_HeXA_Project.domain.mealTable.repository.MealTableRepository;
 import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
 import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.repository.MealTableAndMenuRelationshipRepository;
@@ -11,14 +9,12 @@ import HeXA.MealU_HeXA_Project.service.dto.MealTableDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -36,58 +32,45 @@ public class MealTableService {
         this.mealTableAndMenuRelationshipRepository = mealTableAndMenuRelationshipRepository;
     }
 
-    public MealTableDto findByMealTable(MealTable entity) throws IOException {
-        // 이 메서드를 통해 RelationshipRepository에서 Relationship을 찾고, 실제로 클라이언트에 전달할 MealTableDto 를 리턴해줄 수 있다.
 
+    public List<MealTableDto> findByMealTables(List<MealTable> mealTables) {
+        /* 이 메서드를 통해 RelationshipRepository에서 Relationship을 찾고, 실제로 클라이언트에 전달할 MealTableDtos 를 리턴해줄 수 있다.
+         모든 MealTable에 대한 relationship 을 가지는 리스트.
+         (원래 인자로 mealTable 한개씩 넘기려고 하다가, 쿼리를 줄여야 해서 List로 넘겨서 한번에 받는 것으로 바꿈.)
+         그래서 mealTable 한 개씩 순회하면서 이에 대응하는 List<Menu>를 얻어내는 것이 중요함.*/
+        List<MealTableAndMenuRelationship> relationships = mealTableAndMenuRelationshipRepository.findAllByMealTables(mealTables);
 
-        List<MealTableAndMenuRelationship> relationships = mealTableAndMenuRelationshipRepository.findByMealTable(entity);
-
-        List<Menu> menus = relationships.stream()
-                .map(MealTableAndMenuRelationship::getMenu)
-                .collect(Collectors.toList());
-
-        return MealTableDto.builder()
-                .mealType(entity.getMealType())
-                .dayType(entity.getDayType())
-                .date(entity.getDate())
-                .calorie(entity.getCalories())
-                .restaurantType(entity.getRestaurantType())
-                .menus(menus.stream().map(Menu::getName).collect(Collectors.toList()))
-                .build();
+        List<MealTableDto> mealTableDtos = new ArrayList<>();
+        for (MealTable mealTable : mealTables) {
+            // 식단 한 개에 대응
+            List<MealTableAndMenuRelationship> distinctMealTableAndMenuRelationships = relationships.stream().filter(r -> r.getMealTable().equals(mealTable)).collect(Collectors.toList());
+            List<Menu> menus = distinctMealTableAndMenuRelationships.stream()
+                    .map(MealTableAndMenuRelationship::getMenu)
+                    .collect(Collectors.toList());
+            // 모은 정보를 바탕으로 전달할 한 개의 정보 만듬. 이걸 통신으로 넘길 것.
+            MealTableDto dto = MealTableDto.builder()
+                    .mealType(mealTable.getMealType())
+                    .dayType(mealTable.getDayType())
+                    .date(mealTable.getDate())
+                    .calorie(mealTable.getCalories())
+                    .restaurantType(mealTable.getRestaurantType())
+                    .menus(menus.stream().map(Menu::getName).collect(Collectors.toList()))
+                    .build();
+            mealTableDtos.add(dto);
+        }
+        return mealTableDtos;
     }
 
-    public List<MealTable> findAllByDateAndRestaurantAndMealType() {
-        List<MealTable> mealTables = new ArrayList<>();
-        final int DormitoryIndex = 3;
-        List<String> restaurantTypes = new ArrayList<>(Arrays.asList("학생 식당", "교직원 식당", "기숙사 식당"));
+    public List<MealTable> findAllByMondayDate() {
+        // 월요일 기준으로 MealTableRepository 에서 월~일에 해당하는 모든 식단표를 가져와 리스트로 반환.
+        System.out.println("Read Log1");
         LocalDate mondayDate = findMondayDateByLocalDate();
-        List<LocalDate> dates = new ArrayList<>(Arrays.asList(mondayDate));
-        for (int i = 1; i < 7; i++) {
-            dates.add(mondayDate.plusDays(i)); // 월 ~ 일의 date를 리스트에 넣는다.
-        }
-
-        // 일주일 -> 긱식 -> 아 점 저
-        for(LocalDate date: dates){
-            for(int j = 0; j < 3; j++){
-                MealTable mealTable = mealTableRepository.findByDateAndRestaurantAndMealType(DateUtils.toFormat(date, DateUtils.YYYY_MM_DD)
-                        , restaurantTypes.get(DormitoryIndex), MealType.values()[j]).orElseThrow(()->new IOException());
-                mealTables.add(mealTable);
-            }
-        }
-        // 평일 -> 교식 & 학식 -> 점 저
-        for(int i = 0; i < 5; i++){
-            LocalDate date = dates.get(i);
-            for(int j = 0; j < 2; j++){
-                for(int k = 1; k < 3; k++){
-                    MealTable mealTable = mealTableRepository.findByDateAndRestaurantAndMealType(DateUtils.toFormat(date, DateUtils.YYYY_MM_DD)
-                            , restaurantTypes.get(j), MealType.values()[k]).orElseThrow(() -> new IOException());
-                }
-            }
-        }
-        return mealTables;
+        System.out.println("Read Log2");
+        return mealTableRepository.findByMonday(mondayDate);
     }
 
     public LocalDate findMondayDateByLocalDate() {
+
         LocalDate localDate = LocalDate.now();
         Calendar calendar = Calendar.getInstance();
         ZoneId zoneId = ZoneId.systemDefault();

@@ -5,5 +5,5 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class MenuAndAllergyRelationshipRepositoryImpl implements MenuAndAllergyRelationshipRepositoryCustom{
-    private JPAQueryFactory queryFactory;
+    private final JPAQueryFactory queryFactory;
 }

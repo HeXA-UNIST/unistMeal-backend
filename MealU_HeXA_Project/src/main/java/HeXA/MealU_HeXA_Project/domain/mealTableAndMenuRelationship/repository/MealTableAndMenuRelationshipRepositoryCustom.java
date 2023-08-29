@@ -6,5 +6,5 @@ import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.domain.MealTa
 import java.util.List;
 
 public interface MealTableAndMenuRelationshipRepositoryCustom {
-    List<MealTableAndMenuRelationship> findByMealTable(MealTable mealTable);
+    List<MealTableAndMenuRelationship> findAllByMealTables(List<MealTable> mealTables);
 }

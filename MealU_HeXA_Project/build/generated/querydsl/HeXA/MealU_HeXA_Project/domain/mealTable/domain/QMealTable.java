@@ -22,7 +22,7 @@ public class QMealTable extends EntityPathBase<MealTable> {
 
     public final NumberPath<Long> calories = createNumber("calories", Long.class);
 
-    public final StringPath date = createString("date");
+    public final DatePath<java.time.LocalDate> date = createDate("date", java.time.LocalDate.class);
 
     public final EnumPath<HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType> dayType = createEnum("dayType", HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType.class);
 
