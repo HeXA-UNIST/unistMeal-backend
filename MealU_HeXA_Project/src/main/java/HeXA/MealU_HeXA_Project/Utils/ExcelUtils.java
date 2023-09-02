@@ -1,4 +1,4 @@
-package HeXA.MealU_HeXA_Project.api.common.parsing;
+package HeXA.MealU_HeXA_Project.Utils;
 
 import HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType;
 import lombok.Getter;
@@ -20,18 +20,18 @@ import java.util.List;
 @NoArgsConstructor
 public class ExcelParser {
 
-    private final int DormitoryStartRow = 5;
-    private final int StudentAndProfessorStartRow = 4;
+    private static final int DormitoryStartRow = 5;
+    private static final int StudentAndProfessorStartRow = 4;
 
-    private final int RestaurantTypeRow = 1;
-    private final int RestaurantTypeCol = 1;
-
-
-    private int weekNumber = 5;
-    private final int DormitoryWeekNumber = 7;
+    private static final int RestaurantTypeRow = 1;
+    private static final int RestaurantTypeCol = 1;
 
 
-    public List<List<String>> parse(Sheet worksheet) throws UnsupportedEncodingException {
+    private static int weekNumber = 5;
+    private static final int DormitoryWeekNumber = 7;
+
+
+    public static List<List<String>> parse(Sheet worksheet) throws UnsupportedEncodingException {
         int startRowNum = 0;
         DataFormatter dataFormatter = new DataFormatter();
         /*
@@ -123,7 +123,7 @@ public class ExcelParser {
         return days;
     }
 
-    public String parseRestaurantType(Sheet worksheet) throws UnsupportedEncodingException {
+    public static String parseRestaurantType(Sheet worksheet) throws UnsupportedEncodingException {
         Row restaurantTypeRow = worksheet.getRow(RestaurantTypeRow);
         Cell cell = restaurantTypeRow.getCell(RestaurantTypeCol);
         if(cell == null){
@@ -140,15 +140,15 @@ public class ExcelParser {
 
     }
 
-    private String excelStringDecodingIntoUtf8(Cell cell) throws UnsupportedEncodingException {
+    private static String excelStringDecodingIntoUtf8(Cell cell) throws UnsupportedEncodingException {
         return new String(cell.getStringCellValue().getBytes("UTF-8"), "UTF-8");
     }
 
-    private int changeColNumIntoIndex(int colNum) {
+    private static int changeColNumIntoIndex(int colNum) {
         return colNum / 2 - 2;
     }
 
-    private boolean isMerged(Sheet sheet, int rowIdx, int colIdx) {
+    private static boolean isMerged(Sheet sheet, int rowIdx, int colIdx) {
 
         for (int i = 0; i < sheet.getNumMergedRegions(); ++i) {
             CellRangeAddress range = sheet.getMergedRegion(i);
@@ -159,7 +159,7 @@ public class ExcelParser {
         }
         return false;
     }
-    private int getRowNum(Sheet worksheet) throws UnsupportedEncodingException {
+    private static int getRowNum(Sheet worksheet) throws UnsupportedEncodingException {
         int count = 5; // 기본적으로 비어있는 row 가 아님.
         // (Row, Column) == (5, B) 일 때부터 아래로 내려가면서 MergedRow 면 count 를 올림.
         while(isMerged(worksheet, count, 1)){
@@ -167,6 +167,5 @@ public class ExcelParser {
         }
         return count;
     }
-
 }
 

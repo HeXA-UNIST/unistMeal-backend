@@ -1,17 +1,14 @@
 package HeXA.MealU_HeXA_Project.api.domain.excel.controller;
 
-import HeXA.MealU_HeXA_Project.api.domain.excel.service.ExcelService;
+import HeXA.MealU_HeXA_Project.service.ExcelService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,9 +33,10 @@ public class ExcelController {
     }
 
     @PostMapping("/read")
-    public ResponseEntity<Void> readExcel(@RequestParam("dormitoryFile") MultipartFile dormitoryFile,
-                                          @RequestParam("studentFile") MultipartFile studentFile,
-                                          @RequestParam("professorFile") MultipartFile professorFile
+
+    public ResponseEntity<Void> readExcel(MultipartFile dormitoryFile,
+                                          MultipartFile studentFile,
+                                          MultipartFile professorFile
                                           ) throws URISyntaxException, IOException, InvalidFormatException {
         String dormitoryExtension = FilenameUtils.getExtension(dormitoryFile.getOriginalFilename());
         String studentExtension = FilenameUtils.getExtension(studentFile.getOriginalFilename());

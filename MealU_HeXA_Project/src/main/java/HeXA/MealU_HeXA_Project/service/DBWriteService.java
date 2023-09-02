@@ -1,6 +1,5 @@
 package HeXA.MealU_HeXA_Project.api.common.parsing;
 
-import HeXA.MealU_HeXA_Project.api.Utils.DateUtils;
 import HeXA.MealU_HeXA_Project.domain.mealTable.domain.MealTable;
 import HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType;
 import HeXA.MealU_HeXA_Project.domain.mealTable.model.MealType;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
