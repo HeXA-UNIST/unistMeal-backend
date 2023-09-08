@@ -1,4 +1,4 @@
-package HeXA.MealU_HeXA_Project.domain.dto;
+package HeXA.MealU_HeXA_Project.service.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,4 +7,7 @@ import lombok.Setter;
 @Setter
 public class AnnouncementRequestDto {
     private String content;
+    public AnnouncementRequestDto(String content){
+        this.content = content;
+    }
 }

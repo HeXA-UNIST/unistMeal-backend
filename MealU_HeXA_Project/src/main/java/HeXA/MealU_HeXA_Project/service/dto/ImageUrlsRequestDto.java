@@ -1,4 +1,4 @@
-package HeXA.MealU_HeXA_Project.domain.dto;
+package HeXA.MealU_HeXA_Project.service.dto;
 
 import lombok.Getter;
 import lombok.Setter;

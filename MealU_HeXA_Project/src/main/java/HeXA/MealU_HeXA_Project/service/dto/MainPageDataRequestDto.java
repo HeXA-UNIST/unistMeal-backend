@@ -1,4 +1,4 @@
-package HeXA.MealU_HeXA_Project.domain.dto;
+package HeXA.MealU_HeXA_Project.service.dto;
 
 import HeXA.MealU_HeXA_Project.domain.allergy.domain.Allergy;
 import HeXA.MealU_HeXA_Project.domain.menu.domain.Menu;

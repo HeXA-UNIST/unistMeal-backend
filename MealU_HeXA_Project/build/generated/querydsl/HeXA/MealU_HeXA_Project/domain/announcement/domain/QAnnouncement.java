@@ -21,7 +21,7 @@ public class QAnnouncement extends EntityPathBase<Announcement> {
 
     public final StringPath content = createString("content");
 
-    public final StringPath date = createString("date");
+    public final DatePath<java.time.LocalDate> date = createDate("date", java.time.LocalDate.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

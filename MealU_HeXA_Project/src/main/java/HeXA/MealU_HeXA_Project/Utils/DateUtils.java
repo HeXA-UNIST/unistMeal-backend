@@ -1,4 +1,4 @@
-package HeXA.MealU_HeXA_Project.api.Utils;
+package HeXA.MealU_HeXA_Project.Utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

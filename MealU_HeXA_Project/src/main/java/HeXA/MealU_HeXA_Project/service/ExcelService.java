@@ -1,7 +1,6 @@
-package HeXA.MealU_HeXA_Project.api.domain.excel.service;
+package HeXA.MealU_HeXA_Project.service;
 
-import HeXA.MealU_HeXA_Project.api.common.parsing.DBWriteService;
-import HeXA.MealU_HeXA_Project.api.common.parsing.ExcelParser;
+import HeXA.MealU_HeXA_Project.Utils.ExcelUtils;
 import HeXA.MealU_HeXA_Project.domain.mealTable.repository.MealTableRepository;
 import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.repository.MealTableAndMenuRelationshipRepository;
 import HeXA.MealU_HeXA_Project.domain.menu.repository.MenuRepository;
@@ -46,10 +45,10 @@ public class ExcelService {
         file.getInputStream().close();
         Sheet worksheet = workbook.getSheetAt(0);
 
-        ExcelParser excelParser = new ExcelParser();
 
-        List<List<String>> parsedDays = excelParser.parse(worksheet);
-        String parsedRestaurantType = excelParser.parseRestaurantType(worksheet);
+
+        List<List<String>> parsedDays = ExcelUtils.parse(worksheet);
+        String parsedRestaurantType = ExcelUtils.parseRestaurantType(worksheet);
         System.out.println("end of parsing without Exception");
 
         writeOnRepository(parsedDays, parsedRestaurantType);

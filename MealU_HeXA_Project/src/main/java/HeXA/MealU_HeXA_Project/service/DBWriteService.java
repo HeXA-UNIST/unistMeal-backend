@@ -1,4 +1,4 @@
-package HeXA.MealU_HeXA_Project.api.common.parsing;
+package HeXA.MealU_HeXA_Project.service;
 
 import HeXA.MealU_HeXA_Project.domain.mealTable.domain.MealTable;
 import HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType;

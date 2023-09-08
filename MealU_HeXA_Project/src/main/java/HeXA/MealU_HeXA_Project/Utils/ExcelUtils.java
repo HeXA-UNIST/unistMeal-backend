@@ -4,12 +4,10 @@ import HeXA.MealU_HeXA_Project.domain.mealTable.model.DayType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class ExcelParser {
+public class ExcelUtils {
 
     private static final int DormitoryStartRow = 5;
     private static final int StudentAndProfessorStartRow = 4;
@@ -32,6 +30,9 @@ public class ExcelParser {
 
 
     public static List<List<String>> parse(Sheet worksheet) throws UnsupportedEncodingException {
+        // 긱식을 순회돌고 다시 학식이나 교식을 순회를 돌면 5가 아니라 7을 넣어버려서 오류가 뜸.
+        weekNumber = 5;
+
         int startRowNum = 0;
         DataFormatter dataFormatter = new DataFormatter();
         /*

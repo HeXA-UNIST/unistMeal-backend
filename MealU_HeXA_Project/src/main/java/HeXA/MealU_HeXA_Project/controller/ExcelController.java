@@ -1,4 +1,4 @@
-package HeXA.MealU_HeXA_Project.api.domain.excel.controller;
+package HeXA.MealU_HeXA_Project.controller;
 
 import HeXA.MealU_HeXA_Project.service.ExcelService;
 import org.apache.commons.io.FilenameUtils;
@@ -33,7 +33,6 @@ public class ExcelController {
     }
 
     @PostMapping("/read")
-
     public ResponseEntity<Void> readExcel(MultipartFile dormitoryFile,
                                           MultipartFile studentFile,
                                           MultipartFile professorFile

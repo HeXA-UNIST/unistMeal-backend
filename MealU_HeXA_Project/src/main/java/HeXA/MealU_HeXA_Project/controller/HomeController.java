@@ -1,6 +1,7 @@
 package HeXA.MealU_HeXA_Project.controller;
 
 import HeXA.MealU_HeXA_Project.domain.mealTable.domain.MealTable;
+import HeXA.MealU_HeXA_Project.service.AnnouncementService;
 import HeXA.MealU_HeXA_Project.service.MealTableService;
 import HeXA.MealU_HeXA_Project.service.dto.MealTableDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +15,27 @@ import java.util.List;
 @RestController
 public class HomeController {
     private MealTableService mealTableService;
+
+
+
     @Autowired
     public HomeController(MealTableService mealTableService) {
         this.mealTableService = mealTableService;
+
     }
 
     @GetMapping("/mainpage/data")
-    ResponseEntity<List<MealTableDto>> menuListResponseEntity(/*@RequestBody MainPageDataRequestDto request*/){
+    public ResponseEntity<List<MealTableDto>> menuListResponseEntity(/*@RequestBody MainPageDataRequestDto request*/){
         System.out.println("Read Log0");
         List<MealTable> mealTables = mealTableService.findAllByMondayDate();
         List<MealTableDto>  mealTableDtos = mealTableService.findByMealTables(mealTables);
-
+//        mealTableService.
         return new ResponseEntity<>(mealTableDtos, HttpStatus.OK);
     }
+
+
+
+
 //
 ////    @GetMapping("/notice")
 ////    ResponseEntity<Announcement> announcementResponseEntity(@RequestBody AnnouncementRequestDto request){
