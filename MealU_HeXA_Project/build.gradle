@@ -53,6 +53,9 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.18.26'
 	// swagger
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.4'
+	
+        implementation "org.xerial:sqlite-jdbc:3.32.3.2"
+        implementation "com.github.gwenn:sqlite-dialect:0.1.0"
 
 }
 
