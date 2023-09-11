@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>upload</title>
+</head>
+<body><h1>
+  식단표 업로드
+</h1>
+<br>
+<form action="/read" enctype="multipart/form-data" method="post">
+  <h2>
+    기숙사 식당
+  </h2><br>
+  <input type="file" name="dormitoryFile"><br>
+  <h2>
+    학생식당
+  </h2><br>
+  <input type="file" name="studentFile"><br>
+  <h2>
+    교직원 식당
+  </h2><br>
+  <input type="file" name="professorFile"><br><br>
+  key: <input type="text" name="theKey"><br><br>
+  <input type="submit">
+</form>
+<hr>
+<br>
+<h1>
+  식단표 사진 주소 업로드
+</h1><br>
+<h2>기숙사 식당</h2>
+<form action="/imageDormitoryUrlImport" method="post">
+  key: <input type="text" name="theKey"><br><br>
+  <input type="text" name="dormitoryUrl">
+  <input type="submit">
+</form>
+<br>
+<h2>학생 식당</h2>
+<form action="/imageStudentUrlImport" method="post">
+  key: <input type="text" name="theKey"><br><br>
+  <input type="text" name="studentUrl">
+  <input type="submit">
+</form>
+<br>
+<h2>교직원 식당</h2>
+<form action="/imageProfessorUrlImport" method="post">
+  key: <input type="text" name="theKey"><br><br>
+  <input type="text" name="professorUrl">
+  <input type="submit">
+</form>
+<br>
+<hr>
+<h1>
+  공지사항
+</h1>
+<form action="/updateAnnouncement" method="post">
+  <textarea name="content"></textarea>
+  <br>
+  key: <input type="text" name="theKey"><br><br>
+  <input type="submit">
+
+</form>
+</body>
+</html>
