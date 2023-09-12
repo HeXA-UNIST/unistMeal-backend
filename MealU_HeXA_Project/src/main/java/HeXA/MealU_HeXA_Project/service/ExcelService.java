@@ -31,7 +31,7 @@ public class ExcelService {
         this.menuRepository = menuRepository;
         this.mealTableAndMenuRelationshipRepository = mealTableAndMenuRelationshipRepository;
     }
-
+    @Transactional
     public void importExcel(MultipartFile file) throws IOException, InvalidFormatException {
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 
