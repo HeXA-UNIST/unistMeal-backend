@@ -46,7 +46,7 @@ public class DBWriteService {
     }
 
     public void save(List<List<String>> days, String restaurantType) {
-        System.out.println("DBWriter log 1");
+
 
         /* 첫 날짜 제외하고 나머지 날짜는 함수로 되어있어 첫날을 기준으로 date + n 을 해줘야 할 듯.
            1. Monday의 Date를 String으로 받는다.
@@ -55,7 +55,7 @@ public class DBWriteService {
            4. 더한 Date를 다시 String으로 formatting 시킨다.
            5. 그 Date를 MealTable의 필드로 저장한다.
         */
-        System.out.println("DBWriter log 1-1");
+
         /*
          여기가 문제임. date가 2023-07-17 같은 포맷으로 나오는게 아니라 그냥 45124 이런식으로 정수로 설정되어 있음.
          계산을 해본 결과 1899-12-30 을 기준으로 일수를 세면 45124일이 나오게 된다. (왜 그런지는 모르겠음)
@@ -68,7 +68,7 @@ public class DBWriteService {
         */
         String date = days.get(FirstDayIndex).get(DateNum);
 //        LocalDate date = days.get(FirstDayIndex).get(DateNum)
-        System.out.println("DBWriter log 1-2");
+
 
 
 //      LocalDate mondayDate = DateUtils.parseToDate(date);
@@ -76,10 +76,8 @@ public class DBWriteService {
         LocalDate mondayDate = transformDateFromMealTableDays(transformDateStringToLong(date));
 
 
-        System.out.println("DBWriter log 1-3");
+
         Long count = WeekCountLongNum;
-        System.out.println("DBWriter log 2");
-        System.out.println(days.size());
 
 
         List<MealTable> mealTables = new ArrayList<>();
@@ -87,7 +85,7 @@ public class DBWriteService {
         List<MealTableAndMenuRelationship> relationships = new ArrayList<>();
 
         for (List<String> day : days) {
-            System.out.println("update log1");
+
             List<String> rows = day; // 하루(day)는 rows와 같다.
 
             DayType dayType;
@@ -128,35 +126,33 @@ public class DBWriteService {
             int r = MenuStartRowNum;
             int mealTypeIdx = restaurantType.equals("기숙사 식당") ? Breakfast : Lunch;
 
-            System.out.println("update log2");
+
             while (r != sizeOfRows) {
                 if (mealTypeIdx == 3) // 마지막 공지사항을 피하기 위함. Kcal를 총 3번 순회를 다한 경우엔 멈춰야 함.
                 {
                     break;
                 }
-                System.out.println("update log3");
+
                 MealType mealType = MealType.values()[mealTypeIdx];
                 MealTable mealTable = new MealTable(restaurantType, localDate, dayType, mealType);
-                System.out.println("update log3-1");
+
 //                mealTableRepository.save(mealTable);
-                System.out.println("update log4");
+
                 Matcher matcher = pattern.matcher(rows.get(r));
                 while (!matcher.matches()) {
-                    System.out.println("DBWriter log 3");
+
                     Menu menu = new Menu(rows.get(r));
                     menus.add(menu);
                     MealTableAndMenuRelationship mealTableAndMenuRelationship = new MealTableAndMenuRelationship(mealTable, menu);
                     relationships.add(mealTableAndMenuRelationship);
-                    System.out.println("DBWriter log 4");
+
                     r++;
                     matcher = pattern.matcher(rows.get(r));
                     if(r == sizeOfRows){
                         break;
                     }
-                    System.out.println(rows.get(r));
-                    System.out.println(rows.get(r).matches(KcalRegex));
+
                 }
-                System.out.println("DBWriter log 5");
                 mealTable.setCalories(parseCalorie(rows.get(r)));
                 mealTables.add(mealTable);
                 r++;
@@ -172,7 +168,7 @@ public class DBWriteService {
 
     private LocalDate transformDateFromMealTableDays(Long date) {
         LocalDate fixedDate = LocalDate.of(1899, 12, 30); // 정수 증가되는 표준 날짜임
-        System.out.println(fixedDate.plusDays(date).toString());
+
         return fixedDate.plusDays(date);
     }
 
@@ -184,7 +180,7 @@ public class DBWriteService {
     }
     @Transactional
     private void saveAll(List<MealTable> mealTables, List<Menu> menus, List<MealTableAndMenuRelationship> relationships) {
-        System.out.println("saveAll method starts");
+
         menuRepository.saveAll(menus);
         mealTableRepository.saveAll(mealTables);
         mealTableAndMenuRelationshipRepository.saveAll(relationships);

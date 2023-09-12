@@ -22,21 +22,21 @@ public class AnnouncementService {
     }
 
     public Announcement getLastAnnouncement(){
-        System.out.println("log1");
+
 
         List<Announcement> announcements= announcementRepository.findAll();
-        LocalDate recentDay = announcements.get(0).getDate();
-        for(Announcement announcement: announcements){
-            if(announcement.getDate().isAfter(recentDay)){
-                recentDay = announcement.getDate();
-            }
+        if (announcements.isEmpty()){
+            throw new BadRequestException(BadRequestType.CANNOT_FIND_ANNOUNCEMENT);
         }
-        Announcement announcement = announcementRepository.findLastAnnouncement(recentDay).orElseThrow(() -> new BadRequestException(BadRequestType.CANNOT_FIND_ANNOUNCEMENT));
+
+
+        Announcement announcement = announcements.get(0);
 
         return announcement;
     }
     @Transactional
     public void updateAnnouncement(String content){
+
         Announcement newAnnouncement= new Announcement(LocalDate.now(), content);
         announcementRepository.deleteAll();
         announcementRepository.save(newAnnouncement);
