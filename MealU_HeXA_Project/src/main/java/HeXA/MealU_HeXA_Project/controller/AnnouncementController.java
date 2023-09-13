@@ -2,6 +2,7 @@ package HeXA.MealU_HeXA_Project.controller;
 
 import HeXA.MealU_HeXA_Project.service.AnnouncementService;
 import HeXA.MealU_HeXA_Project.service.dto.AnnouncementRequestDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ public class AnnouncementController {
         this.announcementService = announcementService;
     }
 
+    @Value("${secretKey}")
+    String secretKey;
+
     @GetMapping("/notice")
     public ResponseEntity<AnnouncementRequestDto> announcementContentResponse(){
         String content = announcementService.getLastAnnouncement().getContent();
@@ -27,7 +31,11 @@ public class AnnouncementController {
     }
 
     @PostMapping("/updateAnnouncement")
-    public ResponseEntity<Void> updateAnnouncement(String content) throws URISyntaxException {
+    public ResponseEntity<Void> updateAnnouncement(String content, String theKey) throws URISyntaxException {
+        if (!theKey.equals(secretKey)) {
+            return ResponseEntity.badRequest().build();
+        }
+
         announcementService.updateAnnouncement(content);
         return ResponseEntity.created(new URI("/updateSuccess")).build();
     }
