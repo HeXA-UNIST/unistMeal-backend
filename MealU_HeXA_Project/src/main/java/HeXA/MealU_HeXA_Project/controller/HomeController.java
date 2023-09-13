@@ -26,7 +26,7 @@ public class HomeController {
 
     @GetMapping("/mainpage/data")
     public ResponseEntity<List<MealTableDto>> menuListResponseEntity(/*@RequestBody MainPageDataRequestDto request*/){
-        System.out.println("Read Log0");
+
         List<MealTable> mealTables = mealTableService.findAllByMondayDate();
         List<MealTableDto>  mealTableDtos = mealTableService.findByMealTables(mealTables);
 //        mealTableService.

@@ -63,15 +63,16 @@ public class MealTableService {
 
     public List<MealTable> findAllByMondayDate() {
         // 월요일 기준으로 MealTableRepository 에서 월~일에 해당하는 모든 식단표를 가져와 리스트로 반환.
-        System.out.println("Read Log1");
+
         LocalDate mondayDate = findMondayDateByLocalDate();
-        System.out.println("Read Log2");
+
         return mealTableRepository.findByMonday(mondayDate);
     }
 
     public LocalDate findMondayDateByLocalDate() {
 
         LocalDate localDate = LocalDate.now();
+
         Calendar calendar = Calendar.getInstance();
         ZoneId zoneId = ZoneId.systemDefault();
         Date date = Date.from(localDate.atStartOfDay(zoneId).toInstant());
