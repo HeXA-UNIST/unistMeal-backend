@@ -6,6 +6,8 @@ import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.domain.MealTa
 import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.repository.MealTableAndMenuRelationshipRepository;
 import HeXA.MealU_HeXA_Project.domain.menu.domain.Menu;
 import HeXA.MealU_HeXA_Project.service.dto.MealTableDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,12 +28,21 @@ public class MealTableService {
     private final MealTableRepository mealTableRepository;
     private final MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
+
 
     public MealTableService(MealTableRepository mealTableRepository, MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository) {
         this.mealTableRepository = mealTableRepository;
         this.mealTableAndMenuRelationshipRepository = mealTableAndMenuRelationshipRepository;
     }
 
+    public void startGetMealTableLog() {
+        logger.info("start to get (meal table)...");
+    }
+
+    public void finishGetMealTableLog() {
+        logger.info("finish to get (meal table)!");
+    }
 
     public List<MealTableDto> findByMealTables(List<MealTable> mealTables) {
         /* 이 메서드를 통해 RelationshipRepository에서 Relationship을 찾고, 실제로 클라이언트에 전달할 MealTableDtos 를 리턴해줄 수 있다.
@@ -39,7 +50,7 @@ public class MealTableService {
          (원래 인자로 mealTable 한개씩 넘기려고 하다가, 쿼리를 줄여야 해서 List로 넘겨서 한번에 받는 것으로 바꿈.)
          그래서 mealTable 한 개씩 순회하면서 이에 대응하는 List<Menu>를 얻어내는 것이 중요함.*/
         List<MealTableAndMenuRelationship> relationships = mealTableAndMenuRelationshipRepository.findAllByMealTables(mealTables);
-
+        logger.info("start to make the mealTableDtos... ");
         List<MealTableDto> mealTableDtos = new ArrayList<>();
         for (MealTable mealTable : mealTables) {
             // 식단 한 개에 대응
@@ -58,6 +69,7 @@ public class MealTableService {
                     .build();
             mealTableDtos.add(dto);
         }
+        logger.info("finish to make the mealTableDtos!");
         return mealTableDtos;
     }
 

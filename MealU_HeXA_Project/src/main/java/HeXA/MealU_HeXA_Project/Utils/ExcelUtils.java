@@ -40,16 +40,12 @@ public class ExcelUtils {
          기숙사 식당이면 4, 6, 8, 10, 12, 14, 16
          나머지는 4, 6, 8, 10, 12 까지
         */
-        System.out.println("ExcelParser Log1");
 
 
         List<Integer> colList;
 
-        System.out.println("ExcelParser Log2");
         // 엑셀의 첫 번째 Row를 통해 식당 종류를 분류함.
 
-        //        System.out.println(restaurantType);
-//        System.out.println("201동 교직원식당 주간식단표");
         if (parseRestaurantType(worksheet).equals("교직원 식당")) {
             startRowNum = StudentAndProfessorStartRow; // 교직원 식당 => day 5개
             colList = new ArrayList<>(Arrays.asList(DayType.MondayColNum, DayType.TuesdayColNum, DayType.WednesdayColNum
@@ -66,7 +62,6 @@ public class ExcelUtils {
             weekNumber = DormitoryWeekNumber;
 
         }
-        System.out.println("ExcelParser Log3");
         // 일주일 == 7 days를 만든다.
 
         List<List<String>> days = new ArrayList<>();
@@ -75,17 +70,14 @@ public class ExcelUtils {
         }
 
         int numOfRowsInSheet = getRowNum(worksheet); // 여기가 이슈가 좀 있네요
-//        int numOfRowsInSheet = worksheet.getLastRowNum();
-        System.out.println("ExcelParser Log4");
-        System.out.println(numOfRowsInSheet);
+
+
         for (int i = startRowNum; i < numOfRowsInSheet; i++) {
             Row row = worksheet.getRow(i);
-            System.out.println("ExcelParser Log5");
             if (isMerged(worksheet, i, DayType.MondayColNum)) // Merged Row인지 판별해주는 코드
             {
                 continue;
             }
-            System.out.println("ExcelParser Log6");
             for (Integer colNum : colList) {
                 /*
                  4, 6, 8, 10.. 와 같은 정수를 0, 1, 2, 3라는 인덱스에 매핑시켜야한다.
@@ -94,31 +86,24 @@ public class ExcelUtils {
                  여기서 어차피 정수라 반내림될 것이므로 x = y/2 - 2가 되겠다.
                  이렇게 계산하면 차례대로 Mon, Tues, Wed.. 가 인덱스로 들어가게 됨.
                 */
-                System.out.println("ExcelParser Log7");
 
-//                System.out.println(row.getCell(colNum)
-//                        .getStringCellValue());
 
                 if(row.getCell(colNum, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL) == null){
                     continue;
                 }
                 if(dataFormatter.formatCellValue(row.getCell(colNum)).equals("")){
-                    System.out.println("if statement");
+
                     continue;
                 }
-                System.out.println(dataFormatter.formatCellValue(row.getCell(colNum)));
-                System.out.println("ExcelParser Log7-1");
-
-                System.out.println("Print Successful");
 
 
-                System.out.println("ExcelParser Log7-2");
+
+
                 days.get(changeColNumIntoIndex(colNum))
                         .add(dataFormatter.formatCellValue(row.getCell(colNum))); // 이렇게 하면 한 day(column)에 해당하는 모든 string이 들어가게 될 것.
-                System.out.println("ExcelParser Log8");
+
             }
         }
-        System.out.println("ExcelParser Successfully out of For loop");
 
 
         return days;

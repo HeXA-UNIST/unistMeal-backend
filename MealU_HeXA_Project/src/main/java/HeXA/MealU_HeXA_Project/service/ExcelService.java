@@ -10,6 +10,8 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,11 +27,19 @@ public class ExcelService {
 
     private final MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
+
     public ExcelService(MealTableRepository mealTableRepository, MenuRepository menuRepository
             , MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository) {
         this.mealTableRepository = mealTableRepository;
         this.menuRepository = menuRepository;
         this.mealTableAndMenuRelationshipRepository = mealTableAndMenuRelationshipRepository;
+    }
+    public void startReadLog(){
+        logger.info("start to read excel...");
+    }
+    public void finishReadLog(){
+        logger.info("success read to excel!");
     }
     @Transactional
     public void importExcel(MultipartFile file) throws IOException, InvalidFormatException {
@@ -46,18 +56,19 @@ public class ExcelService {
         Sheet worksheet = workbook.getSheetAt(0);
 
 
-
+        logger.info("start parsing");
         List<List<String>> parsedDays = ExcelUtils.parse(worksheet);
         String parsedRestaurantType = ExcelUtils.parseRestaurantType(worksheet);
-        System.out.println("end of parsing without Exception");
+        logger.info("end of parsing without exception");
 
         writeOnRepository(parsedDays, parsedRestaurantType);
     }
 
     @Transactional
     public void writeOnRepository(List<List<String>> days, String restaurantType) {
+        logger.info("start write on database");
         DBWriteService writer = new DBWriteService(mealTableRepository, menuRepository, mealTableAndMenuRelationshipRepository);
         writer.save(days, restaurantType);
-        System.out.println("End of write on Database");
+        logger.info("end write on database");
     }
 }

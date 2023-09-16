@@ -67,11 +67,6 @@ public class DBWriteService {
 
         */
         String date = days.get(FirstDayIndex).get(DateNum);
-//        LocalDate date = days.get(FirstDayIndex).get(DateNum)
-
-
-
-//      LocalDate mondayDate = DateUtils.parseToDate(date);
 
         LocalDate mondayDate = transformDateFromMealTableDays(transformDateStringToLong(date));
 
@@ -91,8 +86,6 @@ public class DBWriteService {
             DayType dayType;
             switch (rows.get(DayTypeNum)) {
                 case "MON":
-//                    DayType.valueOf(rows.get(DayTypeNum));
-//                    DayType.valueOf(rows.get(DayTypeNum));
                     dayType = DayType.MON;
                     break;
                 case "TUE":
@@ -114,7 +107,6 @@ public class DBWriteService {
                     dayType = DayType.SUN;
                     break;
             }
-//            LocalDate localDate = DateUtils.toFormat(mondayDate.plusDays(count), DateUtils.YYYY_MM_DD);
             LocalDate localDate = mondayDate.plusDays(count);
             count++;
 
@@ -184,12 +176,6 @@ public class DBWriteService {
         menuRepository.saveAll(menus);
         mealTableRepository.saveAll(mealTables);
         mealTableAndMenuRelationshipRepository.saveAll(relationships);
-//        for(MealTable mealTable: mealTables){
-//            mealTableRepository.save(mealTable);
-//            List<MealTableAndMenuRelationship> matchedRelationships = relationships.stream()
-//                    .filter(r -> r.getMealTable().equals(mealTable))
-//                    .collect(Collectors.toList());
-//            mealTableAndMenuRelationshipRepository.saveAll(matchedRelationships);
-//        }
+
     }
 }

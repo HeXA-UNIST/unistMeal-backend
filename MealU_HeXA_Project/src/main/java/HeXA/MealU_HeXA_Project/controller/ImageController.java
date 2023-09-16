@@ -24,29 +24,37 @@ public class ImageController {
 
     @PostMapping("/imageDormitoryUrlImport")
     public ResponseEntity<Void> importDormitoryImageUrl(String dormitoryUrl) throws URISyntaxException {
+        imageUrlsService.startImportUrl("Dormitory");
         imageUrlsService.importDormitoryUrl(dormitoryUrl);
+        imageUrlsService.finishImportUrl("Dormitory");
         return ResponseEntity.created(new URI("/importSuccess")).build();
     }
 
     @PostMapping("/imageStudentUrlImport")
     public ResponseEntity<Void> importStudentImageUrl(String studentUrl) throws URISyntaxException {
+        imageUrlsService.startImportUrl("Student");
         imageUrlsService.importStudentUrl(studentUrl);
+        imageUrlsService.finishImportUrl("Student");
         return ResponseEntity.created(new URI("/importSuccess")).build();
     }
 
     @PostMapping("/imageProfessorUrlImport")
     public ResponseEntity<Void> importProfessorImageUrl(String professorUrl) throws URISyntaxException {
+        imageUrlsService.startImportUrl("Professor");
         imageUrlsService.importProfessorUrl(professorUrl);
+        imageUrlsService.finishImportUrl("Professor");
         return ResponseEntity.created(new URI("/importSuccess")).build();
     }
 
 
     @GetMapping("/image")
     public ResponseEntity<ImageUrlsDto> imageUrlsResponse() {
+        imageUrlsService.startGetImgUrls();
         String dormitoryUrl = imageUrlsService.getDormitoryUrl();
         String studentUrl = imageUrlsService.getStudentUrl();
         String professorUrl = imageUrlsService.getProfessorUrl();
         ImageUrlsDto imageUrlsDto = new ImageUrlsDto(dormitoryUrl, studentUrl, professorUrl);
+        imageUrlsService.finishGetImgUrls();
         return new ResponseEntity<>(imageUrlsDto, HttpStatus.OK);
     }
 

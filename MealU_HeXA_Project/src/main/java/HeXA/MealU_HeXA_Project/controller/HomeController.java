@@ -4,6 +4,8 @@ import HeXA.MealU_HeXA_Project.domain.mealTable.domain.MealTable;
 import HeXA.MealU_HeXA_Project.service.AnnouncementService;
 import HeXA.MealU_HeXA_Project.service.MealTableService;
 import HeXA.MealU_HeXA_Project.service.dto.MealTableDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,7 @@ import java.util.List;
 @RestController
 public class HomeController {
     private MealTableService mealTableService;
-
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     @Autowired
     public HomeController(MealTableService mealTableService) {
