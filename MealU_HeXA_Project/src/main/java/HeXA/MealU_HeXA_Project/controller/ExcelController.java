@@ -7,6 +7,7 @@ import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping("/excel")
 public class ExcelController {
+
     private final ExcelService excelService;
 
     @Autowired
@@ -34,19 +36,26 @@ public class ExcelController {
         return new ResponseEntity<>("excel", HttpStatus.OK);
     }
 
+    @Value("${secretKey}")
+    String secretKey;
+
     @PostMapping("/read")
     public ResponseEntity<Void> readExcel(MultipartFile dormitoryFile,
-                                          MultipartFile studentFile,
-                                          MultipartFile professorFile
-                                          ) throws URISyntaxException, IOException, InvalidFormatException {
+        MultipartFile studentFile,
+        MultipartFile professorFile,
+        String theKey
+    ) throws URISyntaxException, IOException, InvalidFormatException {
+        if (!theKey.equals(secretKey)) {
+            return ResponseEntity.badRequest().build();
+        }
         String dormitoryExtension = FilenameUtils.getExtension(dormitoryFile.getOriginalFilename());
         String studentExtension = FilenameUtils.getExtension(studentFile.getOriginalFilename());
         String professorExtension = FilenameUtils.getExtension(professorFile.getOriginalFilename());
         if (!dormitoryExtension.equals("xlsx") && !dormitoryExtension.equals("xls")) {
             return ResponseEntity.badRequest().build();
-        }else if (!studentExtension.equals("xlsx") && !studentExtension.equals("xls")) {
+        } else if (!studentExtension.equals("xlsx") && !studentExtension.equals("xls")) {
             return ResponseEntity.badRequest().build();
-        }else if (!professorExtension.equals("xlsx") && !professorExtension.equals("xls")) {
+        } else if (!professorExtension.equals("xlsx") && !professorExtension.equals("xls")) {
             return ResponseEntity.badRequest().build();
         }
 
