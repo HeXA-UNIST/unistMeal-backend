@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>upload</title>
+</head>
+
+<body class="bg-light py-5">
+
+<div class="container">
+  <h1 class="text-center mb-4">
+    식단표 업로드
+  </h1>
+
+  <div class="card p-4">
+    <form action="/read" enctype="multipart/form-data" method="post">
+      <div class="form-group">
+        <label for="dormitoryFile"><h4>기숙사 식당</h4></label>
+        <input type="file" class="form-control-file" name="dormitoryFile">
+      </div>
+
+      <div class="form-group">
+        <label for="studentFile"><h4>학생식당</h4></label>
+        <input type="file" class="form-control-file" name="studentFile">
+      </div>
+
+      <div class="form-group">
+        <label for="professorFile"><h4>교직원 식당</h4></label>
+        <input type="file" class="form-control-file" name="professorFile">
+      </div>
+
+      <div class="form-group">
+        <label for="theKey">key:</label>
+        <input type="text" class="form-control" name="theKey">
+      </div>
+
+      <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+    </form>
+  </div>
+
+  <hr class="my-5">
+
+  <h1 class="text-center mb-4">
+    식단표 사진 주소 업로드
+  </h1>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card p-4">
+        <h2>기숙사 식당</h2>
+        <form action="/imageDormitoryUrlImport" method="post">
+          <div class="form-group">
+            <label for="theKey">key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="dormitoryUrl" placeholder="URL">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-4">
+        <h2>학생 식당</h2>
+        <form action="/imageStudentUrlImport" method="post">
+          <div class="form-group">
+            <label for="theKey">key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="studentUrl" placeholder="URL">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-4">
+        <h2>교직원 식당</h2>
+        <form action="/imageProfessorUrlImport" method="post">
+          <div class="form-group">
+            <label for="theKey">key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="professorUrl" placeholder="URL">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <div class="card p-4">
+    <h1 class="text-center mb-4">
+      공지사항
+    </h1>
+    <form action="/updateAnnouncement" method="post">
+      <div class="form-group">
+        <textarea name="content" class="form-control" rows="5" placeholder="공지사항 내용을 작성해주세요."></textarea>
+      </div>
+      <div class="form-group">
+        <label for="theKey">key:</label>
+        <input type="text" class="form-control" name="theKey">
+      </div>
+      <button type="submit" class="btn" style="background-color: #00CD80; color: white">공지사항 업로드</button>
+    </form>
+  </div>
+
+</div>
+
+<!-- Add Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
