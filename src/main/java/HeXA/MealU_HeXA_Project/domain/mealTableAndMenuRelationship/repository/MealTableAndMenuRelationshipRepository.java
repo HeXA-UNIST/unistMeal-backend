@@ -1,9 +1,0 @@
-package HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.repository;
-
-import HeXA.MealU_HeXA_Project.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface MealTableAndMenuRelationshipRepository extends JpaRepository<MealTableAndMenuRelationship, Long>, MealTableAndMenuRelationshipRepositoryCustom{
-}
