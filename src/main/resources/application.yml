@@ -7,8 +7,7 @@ logging:
     file: "[%d{yyyy-MM-dd HH:mm:ss}:%-3relative] %-5level ${PID:-} --- [%15.15thread] %-40.40logger{36} : %msg%n"
     console: "[%d{yyyy-MM-dd HH:mm:ss}:%-3relative]  %clr(%-5level) %clr(${PID:-}){magenta} %clr(---){faint} %clr([%15.15thread]){faint} %clr(%-40.40logger{36}){cyan} %clr(:){faint} %msg%n"
   file:
-    path: logs/
-    name:
+    name: logs/unistMeal.log
   logback:
     rollingpolicy:
       file-name-pattern: ./was-logs/info.%d{yyyy-MM-dd}.%i.log.gz

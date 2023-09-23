@@ -1,16 +1,5 @@
 package pro.hexa.unist.meal.service;
 
-import pro.hexa.unist.meal.domain.mealTable.domain.MealTable;
-import pro.hexa.unist.meal.domain.mealTable.repository.MealTableRepository;
-import pro.hexa.unist.meal.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
-import pro.hexa.unist.meal.domain.mealTableAndMenuRelationship.repository.MealTableAndMenuRelationshipRepository;
-import pro.hexa.unist.meal.domain.menu.domain.Menu;
-import pro.hexa.unist.meal.service.dto.MealTableDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,27 +10,31 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import pro.hexa.unist.meal.domain.mealTable.domain.MealTable;
+import pro.hexa.unist.meal.domain.mealTable.repository.MealTableRepository;
+import pro.hexa.unist.meal.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
+import pro.hexa.unist.meal.domain.mealTableAndMenuRelationship.repository.MealTableAndMenuRelationshipRepository;
+import pro.hexa.unist.meal.domain.menu.domain.Menu;
+import pro.hexa.unist.meal.service.dto.MealTableDto;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class MealTableService {
     private final MealTableRepository mealTableRepository;
     private final MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
-
-
-    public MealTableService(MealTableRepository mealTableRepository, MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository) {
-        this.mealTableRepository = mealTableRepository;
-        this.mealTableAndMenuRelationshipRepository = mealTableAndMenuRelationshipRepository;
-    }
-
     public void startGetMealTableLog() {
-        logger.info("start to get (meal table)...");
+        log.info("start to get (meal table)...");
     }
 
     public void finishGetMealTableLog() {
-        logger.info("finish to get (meal table)!");
+        log.info("finish to get (meal table)!");
     }
 
     public List<MealTableDto> findByMealTables(List<MealTable> mealTables) {
@@ -50,7 +43,7 @@ public class MealTableService {
          (원래 인자로 mealTable 한개씩 넘기려고 하다가, 쿼리를 줄여야 해서 List로 넘겨서 한번에 받는 것으로 바꿈.)
          그래서 mealTable 한 개씩 순회하면서 이에 대응하는 List<Menu>를 얻어내는 것이 중요함.*/
         List<MealTableAndMenuRelationship> relationships = mealTableAndMenuRelationshipRepository.findAllByMealTables(mealTables);
-        logger.info("start to make the mealTableDtos... ");
+        log.info("start to make the mealTableDtos... ");
         List<MealTableDto> mealTableDtos = new ArrayList<>();
         for (MealTable mealTable : mealTables) {
             // 식단 한 개에 대응
@@ -69,7 +62,7 @@ public class MealTableService {
                     .build();
             mealTableDtos.add(dto);
         }
-        logger.info("finish to make the mealTableDtos!");
+        log.info("finish to make the mealTableDtos!");
         return mealTableDtos;
     }
 

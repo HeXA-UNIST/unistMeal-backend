@@ -2,28 +2,19 @@ package pro.hexa.unist.meal.service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Stream;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import pro.hexa.unist.meal.Utils.ExcelUtils;
-import pro.hexa.unist.meal.domain.mealTable.repository.MealTableRepository;
-import pro.hexa.unist.meal.domain.mealTableAndMenuRelationship.repository.MealTableAndMenuRelationshipRepository;
-import pro.hexa.unist.meal.domain.menu.repository.MenuRepository;
 import pro.hexa.unist.meal.service.Exceptions.BadRequestException;
-import pro.hexa.unist.meal.service.Exceptions.BadRequestType;
 
 import static pro.hexa.unist.meal.service.Exceptions.BadRequestType.CANNOT_READ_FILE;
 import static pro.hexa.unist.meal.service.Exceptions.BadRequestType.WRONG_SECRET_KEY;
@@ -34,9 +25,6 @@ import static pro.hexa.unist.meal.service.Exceptions.BadRequestType.WRONG_SECRET
 @RequiredArgsConstructor
 public class ExcelService {
 
-    private final MealTableRepository mealTableRepository;
-    private final MenuRepository menuRepository;
-    private final MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository;
     private final DBWriteService dbWriteService;
 
     @Value("${secretKey}")

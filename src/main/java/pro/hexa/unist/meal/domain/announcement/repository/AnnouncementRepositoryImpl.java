@@ -19,4 +19,13 @@ public class AnnouncementRepositoryImpl implements AnnouncementRepositoryCustom 
             .where(announcement.createdAt.between(recentDay.atStartOfDay(), recentDay.atStartOfDay().plusDays(1)))
             .fetchOne());
     }
+
+    @Override
+    public Optional<Announcement> findLastestByQuery() {
+        QAnnouncement announcement = QAnnouncement.announcement;
+        return Optional.ofNullable(queryFactory.selectFrom(announcement)
+            .orderBy(announcement.createdAt.desc())
+            .limit(1)
+            .fetchOne());
+    }
 }

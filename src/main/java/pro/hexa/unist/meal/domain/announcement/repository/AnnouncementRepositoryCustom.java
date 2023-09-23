@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface AnnouncementRepositoryCustom {
     Optional<Announcement> findLastAnnouncement(LocalDate recentDay);
+
+    Optional<Announcement> findLastestByQuery();
 }
