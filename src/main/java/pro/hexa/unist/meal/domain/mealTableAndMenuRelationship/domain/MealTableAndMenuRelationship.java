@@ -1,5 +1,6 @@
 package pro.hexa.unist.meal.domain.mealTableAndMenuRelationship.domain;
 
+import javax.persistence.CascadeType;
 import pro.hexa.unist.meal.domain.AbstractEntity;
 import pro.hexa.unist.meal.domain.mealTable.domain.MealTable;
 import pro.hexa.unist.meal.domain.menu.domain.Menu;
@@ -21,11 +22,11 @@ public class MealTableAndMenuRelationship extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(targetEntity = MealTable.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = MealTable.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 //    @JoinColumn(name = "mealTable_id")
     private MealTable mealTable;
 
-    @ManyToOne(targetEntity = Menu.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Menu.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 //    @JoinColumn(name = "menu_id")
     private Menu menu;
 

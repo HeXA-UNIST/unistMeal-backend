@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -16,7 +16,7 @@
   </h1>
 
   <div class="card p-4">
-    <form action="/read" enctype="multipart/form-data" method="post">
+    <form action="/excel/read" enctype="multipart/form-data" method="post">
       <div class="form-group">
         <label for="dormitoryFile"><h4>기숙사 식당</h4></label>
         <input type="file" class="form-control-file" name="dormitoryFile">
@@ -51,7 +51,7 @@
     <div class="col-md-4">
       <div class="card p-4">
         <h2>기숙사 식당</h2>
-        <form action="/imageDormitoryUrlImport" method="post">
+        <form action="/image/dormitoryUrlImport" method="post">
           <div class="form-group">
             <label for="theKey">key:</label>
             <input type="text" class="form-control" name="theKey">
@@ -67,7 +67,7 @@
     <div class="col-md-4">
       <div class="card p-4">
         <h2>학생 식당</h2>
-        <form action="/imageStudentUrlImport" method="post">
+        <form action="/image/StudentUrlImport" method="post">
           <div class="form-group">
             <label for="theKey">key:</label>
             <input type="text" class="form-control" name="theKey">
@@ -83,7 +83,7 @@
     <div class="col-md-4">
       <div class="card p-4">
         <h2>교직원 식당</h2>
-        <form action="/imageProfessorUrlImport" method="post">
+        <form action="/image/ProfessorUrlImport" method="post">
           <div class="form-group">
             <label for="theKey">key:</label>
             <input type="text" class="form-control" name="theKey">
@@ -103,7 +103,7 @@
     <h1 class="text-center mb-4">
       공지사항
     </h1>
-    <form action="/updateAnnouncement" method="post">
+    <form action="/notice/update" method="post">
       <div class="form-group">
         <textarea name="content" class="form-control" rows="5" placeholder="공지사항 내용을 작성해주세요."></textarea>
       </div>

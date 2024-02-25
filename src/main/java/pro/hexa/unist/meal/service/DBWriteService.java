@@ -122,11 +122,14 @@ public class DBWriteService {
                     relationships.add(mealTableAndMenuRelationship);
 
                     r++;
-                    matcher = pattern.matcher(rows.get(r));
                     if(r == sizeOfRows){
                         break;
                     }
+                    matcher = pattern.matcher(rows.get(r));
 
+                }
+                if(r == sizeOfRows){
+                    break;
                 }
                 mealTable.setCalories(parseCalorie(rows.get(r)));
                 mealTables.add(mealTable);
