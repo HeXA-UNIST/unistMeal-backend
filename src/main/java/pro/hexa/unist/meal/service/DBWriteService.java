@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pro.hexa.unist.meal.domain.mealTable.domain.MealTable;
 import pro.hexa.unist.meal.domain.mealTable.model.DayType;
+import pro.hexa.unist.meal.domain.mealTable.model.DormitoryType;
 import pro.hexa.unist.meal.domain.mealTable.model.MealType;
 import pro.hexa.unist.meal.domain.mealTable.repository.MealTableRepository;
 import pro.hexa.unist.meal.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
@@ -104,31 +105,65 @@ public class DBWriteService {
             int r = MenuStartRowNum;
             int mealTypeIdx = restaurantType.equals("기숙사 식당") ? Breakfast : Lunch;
 
+
+
             while (r != sizeOfRows) {
-                if (mealTypeIdx == 3) // 마지막 공지사항을 피하기 위함. Kcal를 총 3번 순회를 다한 경우엔 멈춰야 함.
+                boolean findOnlyKcal = false;
+                if (mealTypeIdx == 5) // 마지막 공지사항을 피하기 위함. Kcal를 총 3번 순회를 다한 경우엔 멈춰야 함.
                 {
                     break;
                 }
 
-                MealType mealType = MealType.values()[mealTypeIdx];
-                MealTable mealTable = new MealTable(restaurantType, localDate, dayType, mealType);
+                MealType mealType = null;
+                DormitoryType dormitoryType = null;
+                if (restaurantType.equals("기숙사 식당")) {
+                    if (mealTypeIdx == 0) {
+                        mealType = MealType.values()[0];
+                        dormitoryType = DormitoryType.KOREAN;
+                    } else if (mealTypeIdx == 1) {
+                        mealType = MealType.values()[1];
+                        dormitoryType = DormitoryType.KOREAN;
+                    } else if (mealTypeIdx == 2) {
+                        mealType = MealType.values()[1];
+                        dormitoryType = DormitoryType.HALAL;
+                    } else if (mealTypeIdx == 3) {
+                        mealType = MealType.values()[1];
+                        dormitoryType = DormitoryType.KOREAN;
+                    } else if (mealTypeIdx == 4) {
+                        mealType = MealType.values()[1];
+                        dormitoryType = DormitoryType.HALAL;
+                    }
+                } else {
+                    mealType = MealType.values()[mealTypeIdx];
+                }
+                MealTable mealTable = new MealTable(restaurantType, localDate, dayType, mealType, dormitoryType);
 
                 Matcher matcher = pattern.matcher(rows.get(r));
                 while (!matcher.matches()) {
 
                     Menu menu = new Menu(rows.get(r));
-                    menus.add(menu);
-                    MealTableAndMenuRelationship mealTableAndMenuRelationship = new MealTableAndMenuRelationship(mealTable, menu);
-                    relationships.add(mealTableAndMenuRelationship);
+
+                    if (menu.equals("")) {
+                        findOnlyKcal = true;
+                    } else {
+                        if (findOnlyKcal) {
+                            r--;
+                            break;
+                        } else {
+                            menus.add(menu);
+                            MealTableAndMenuRelationship mealTableAndMenuRelationship = new MealTableAndMenuRelationship(mealTable, menu);
+                            relationships.add(mealTableAndMenuRelationship);
+                        }
+                    }
 
                     r++;
-                    if(r == sizeOfRows){
+                    if (r == sizeOfRows) {
                         break;
                     }
                     matcher = pattern.matcher(rows.get(r));
 
                 }
-                if(r == sizeOfRows){
+                if (r == sizeOfRows) {
                     break;
                 }
                 mealTable.setCalories(parseCalorie(rows.get(r)));

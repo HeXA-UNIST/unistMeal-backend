@@ -26,6 +26,7 @@ import pro.hexa.unist.meal.service.dto.MealTableDto;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MealTableService {
+
     private final MealTableRepository mealTableRepository;
     private final MealTableAndMenuRelationshipRepository mealTableAndMenuRelationshipRepository;
 
@@ -47,19 +48,21 @@ public class MealTableService {
         List<MealTableDto> mealTableDtos = new ArrayList<>();
         for (MealTable mealTable : mealTables) {
             // 식단 한 개에 대응
-            List<MealTableAndMenuRelationship> distinctMealTableAndMenuRelationships = relationships.stream().filter(r -> r.getMealTable().equals(mealTable)).collect(Collectors.toList());
+            List<MealTableAndMenuRelationship> distinctMealTableAndMenuRelationships = relationships.stream()
+                .filter(r -> r.getMealTable().equals(mealTable)).collect(Collectors.toList());
             List<Menu> menus = distinctMealTableAndMenuRelationships.stream()
-                    .map(MealTableAndMenuRelationship::getMenu)
-                    .collect(Collectors.toList());
+                .map(MealTableAndMenuRelationship::getMenu)
+                .collect(Collectors.toList());
             // 모은 정보를 바탕으로 전달할 한 개의 정보 만듬. 이걸 통신으로 넘길 것.
             MealTableDto dto = MealTableDto.builder()
-                    .mealType(mealTable.getMealType())
-                    .dayType(mealTable.getDayType())
-                    .date(mealTable.getDate())
-                    .calorie(mealTable.getCalories())
-                    .restaurantType(mealTable.getRestaurantType())
-                    .menus(menus.stream().map(Menu::getName).collect(Collectors.toList()))
-                    .build();
+                .mealType(mealTable.getMealType())
+                .dayType(mealTable.getDayType())
+                .date(mealTable.getDate())
+                .calorie(mealTable.getCalories())
+                .restaurantType(mealTable.getRestaurantType())
+                .dormitoryType(mealTable.getDormitoryType())
+                .menus(menus.stream().map(Menu::getName).collect(Collectors.toList()))
+                .build();
             mealTableDtos.add(dto);
         }
         log.info("finish to make the mealTableDtos!");

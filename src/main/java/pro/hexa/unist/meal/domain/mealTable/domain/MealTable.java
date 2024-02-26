@@ -1,7 +1,9 @@
 package pro.hexa.unist.meal.domain.mealTable.domain;
 
+import org.springframework.lang.Nullable;
 import pro.hexa.unist.meal.domain.AbstractEntity;
 import pro.hexa.unist.meal.domain.mealTable.model.DayType;
+import pro.hexa.unist.meal.domain.mealTable.model.DormitoryType;
 import pro.hexa.unist.meal.domain.mealTable.model.MealType;
 import pro.hexa.unist.meal.domain.mealTableAndMenuRelationship.domain.MealTableAndMenuRelationship;
 import lombok.Getter;
@@ -47,16 +49,21 @@ public class MealTable extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private MealType mealType;
 
+    @Comment("긱식 분류")
+    @Enumerated(EnumType.STRING)
+    private DormitoryType dormitoryType;
+
     @Comment("칼로리")
     private Long calories;
 
 
-    public MealTable(String restaurantType, LocalDate date, DayType dayType, MealType mealType) {
+    public MealTable(String restaurantType, LocalDate date, DayType dayType, MealType mealType, DormitoryType dormitoryType) {
 
         this.restaurantType = restaurantType;
         this.date = date;
         this.dayType = dayType;
         this.mealType = mealType;
+        this.dormitoryType = dormitoryType;
     }
     public void setCalories(Long calories){
         this.calories = calories;
