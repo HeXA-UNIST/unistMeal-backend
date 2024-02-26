@@ -1,23 +1,12 @@
-# java version
-FROM openjdk:11
-
-# work dir
+# 1. 빌드 단계
+FROM gradle:latest AS build
 WORKDIR /app
+COPY . /app
+RUN gradle build
 
-# copy file
-COPY . .
-
-# port available
+# 2. 실행 단계
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from=build /app/build/libs/*.jar /app/app.jar
 EXPOSE 8080
-
-# run
-RUN chmod -R 755 .
-
-RUN ./gradlew bootJar
-
-FROM openjdk:11
-COPY --from=builder build/libs/*.jar app.jar
-
-
-
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+CMD ["java", "-jar", "app.jar"]
