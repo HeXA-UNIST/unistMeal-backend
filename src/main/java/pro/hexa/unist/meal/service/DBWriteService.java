@@ -127,10 +127,10 @@ public class DBWriteService {
                         mealType = MealType.values()[1];
                         dormitoryType = DormitoryType.HALAL;
                     } else if (mealTypeIdx == 3) {
-                        mealType = MealType.values()[1];
+                        mealType = MealType.values()[2];
                         dormitoryType = DormitoryType.KOREAN;
                     } else if (mealTypeIdx == 4) {
-                        mealType = MealType.values()[1];
+                        mealType = MealType.values()[2];
                         dormitoryType = DormitoryType.HALAL;
                     }
                 } else {
