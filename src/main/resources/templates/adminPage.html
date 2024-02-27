@@ -33,7 +33,7 @@
       </div>
 
       <div class="form-group">
-        <label for="theKey">key:</label>
+        <label>key:</label>
         <input type="text" class="form-control" name="theKey">
       </div>
 
@@ -53,11 +53,11 @@
         <h2>기숙사 식당</h2>
         <form action="/image/dormitoryUrlImport" method="post">
           <div class="form-group">
-            <label for="theKey">key:</label>
-            <input type="text" class="form-control" name="theKey">
+            <input type="text" class="form-control" name="dormitoryUrl" placeholder="URL">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="dormitoryUrl" placeholder="URL">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
           </div>
           <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
         </form>
@@ -67,13 +67,13 @@
     <div class="col-md-4">
       <div class="card p-4">
         <h2>학생 식당</h2>
-        <form action="/image/StudentUrlImport" method="post">
-          <div class="form-group">
-            <label for="theKey">key:</label>
-            <input type="text" class="form-control" name="theKey">
-          </div>
+        <form action="/image/studentUrlImport" method="post">
           <div class="form-group">
             <input type="text" class="form-control" name="studentUrl" placeholder="URL">
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
           </div>
           <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
         </form>
@@ -83,13 +83,13 @@
     <div class="col-md-4">
       <div class="card p-4">
         <h2>교직원 식당</h2>
-        <form action="/image/ProfessorUrlImport" method="post">
-          <div class="form-group">
-            <label for="theKey">key:</label>
-            <input type="text" class="form-control" name="theKey">
-          </div>
+        <form action="/image/professorUrlImport" method="post">
           <div class="form-group">
             <input type="text" class="form-control" name="professorUrl" placeholder="URL">
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
           </div>
           <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
         </form>
@@ -108,7 +108,7 @@
         <textarea name="content" class="form-control" rows="5" placeholder="공지사항 내용을 작성해주세요."></textarea>
       </div>
       <div class="form-group">
-        <label for="theKey">key:</label>
+        <label>key:</label>
         <input type="text" class="form-control" name="theKey">
       </div>
       <button type="submit" class="btn" style="background-color: #00CD80; color: white">공지사항 업로드</button>

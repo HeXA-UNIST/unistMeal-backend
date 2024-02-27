@@ -3,6 +3,7 @@ package pro.hexa.unist.meal.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pro.hexa.unist.meal.service.ImageUrlsService;
+import pro.hexa.unist.meal.service.MainService;
 import pro.hexa.unist.meal.service.dto.ImageUrlsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,11 @@ public class ImageController {
 
     private final ImageUrlsService imageUrlsService;
 
+    private final MainService mainService;
+
     @PostMapping("/dormitoryUrlImport")
-    public ResponseEntity<Void> importDormitoryImageUrl(String dormitoryUrl) throws URISyntaxException {
+    public ResponseEntity<Void> importDormitoryImageUrl(String dormitoryUrl, String theKey) throws URISyntaxException {
+        mainService.verifySecretKey(theKey);
         imageUrlsService.startImportUrl("Dormitory");
         imageUrlsService.importDormitoryUrl(dormitoryUrl);
         imageUrlsService.finishImportUrl("Dormitory");
@@ -30,7 +34,8 @@ public class ImageController {
     }
 
     @PostMapping("/studentUrlImport")
-    public ResponseEntity<Void> importStudentImageUrl(String studentUrl) throws URISyntaxException {
+    public ResponseEntity<Void> importStudentImageUrl(String studentUrl, String theKey) throws URISyntaxException {
+        mainService.verifySecretKey(theKey);
         imageUrlsService.startImportUrl("Student");
         imageUrlsService.importStudentUrl(studentUrl);
         imageUrlsService.finishImportUrl("Student");
@@ -38,7 +43,8 @@ public class ImageController {
     }
 
     @PostMapping("/professorUrlImport")
-    public ResponseEntity<Void> importProfessorImageUrl(String professorUrl) throws URISyntaxException {
+    public ResponseEntity<Void> importProfessorImageUrl(String professorUrl, String theKey) throws URISyntaxException {
+        mainService.verifySecretKey(theKey);
         imageUrlsService.startImportUrl("Professor");
         imageUrlsService.importProfessorUrl(professorUrl);
         imageUrlsService.finishImportUrl("Professor");

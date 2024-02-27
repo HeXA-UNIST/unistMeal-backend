@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import pro.hexa.unist.meal.service.ExcelService;
+import pro.hexa.unist.meal.service.MainService;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/excel")
 public class ExcelController {
 
     private final ExcelService excelService;
+    private final MainService mainService;
 
     @PostMapping("/read")
     public ResponseEntity<Void> readExcel(
@@ -29,7 +32,8 @@ public class ExcelController {
         MultipartFile professorFile,
         String theKey
     ) throws URISyntaxException, IOException {
-        excelService.readExcel(dormitoryFile, studentFile, professorFile, theKey);
+        mainService.verifySecretKey(theKey);
+        excelService.readExcel(dormitoryFile, studentFile, professorFile);
         return ResponseEntity.created(new URI("/importSuccess")).build();
     }
 }

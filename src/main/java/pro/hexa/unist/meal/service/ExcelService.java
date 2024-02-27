@@ -31,10 +31,8 @@ public class ExcelService {
     String secretKey;
 
     @Transactional
-    public void readExcel(MultipartFile dormitoryFile, MultipartFile studentFile, MultipartFile professorFile, String theKey) throws IOException {
-        if (!theKey.equals(secretKey)) {
-            throw new BadRequestException(WRONG_SECRET_KEY);
-        }
+    public void readExcel(MultipartFile dormitoryFile, MultipartFile studentFile, MultipartFile professorFile) throws IOException {
+
 
         log.info("start to read excel...");
         importExcel(dormitoryFile);
