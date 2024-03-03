@@ -82,7 +82,7 @@ public class MealTableService {
         LocalDate localDate = LocalDate.now();
 
         Calendar calendar = Calendar.getInstance();
-        ZoneId zoneId = ZoneId.systemDefault();
+        ZoneId zoneId = ZoneId.of("+9");
         Date date = Date.from(localDate.atStartOfDay(zoneId).toInstant());
         calendar.setTime(date);
         while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
