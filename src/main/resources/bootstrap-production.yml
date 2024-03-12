@@ -1,0 +1,9 @@
+spring:
+  config:
+    import: 'aws-parameterstore'
+aws:
+  paramstore:
+    enabled: true
+    prefix: /config
+    name: unistMeal
+    profile-separator: .
