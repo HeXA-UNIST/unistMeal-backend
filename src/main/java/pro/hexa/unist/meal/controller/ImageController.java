@@ -1,6 +1,7 @@
 package pro.hexa.unist.meal.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pro.hexa.unist.meal.service.ImageUrlsService;
 import pro.hexa.unist.meal.service.MainService;
@@ -18,6 +19,7 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping("image")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ImageController {
 
     private final ImageUrlsService imageUrlsService;
