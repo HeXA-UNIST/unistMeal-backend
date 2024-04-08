@@ -9,4 +9,6 @@ public interface MealTableRepositoryCustom {
 
     List<MealTable> findByMonday(LocalDate date);
 
+    List<MealTable> findByDateRange(LocalDate startDate, LocalDate endDate);
+
 }

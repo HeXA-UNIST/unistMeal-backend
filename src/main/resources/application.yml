@@ -19,17 +19,17 @@ spring:
     activate:
       on-profile: default, development
 secretKey: someUpdateKeyToChangeWhereYouWantToChangeMenu
----
-spring:
-  config:
-    activate:
-      on-profile: production
-  datasource:
-    url: jdbc:mysql://localhost:3306/mealu
-    username: root
-    password: keredonaiwakatachiniuta
-secretKey: someUpdateKeyToChangeWhereYouWantToChangeMenu
----
-spring:
-  profiles:
-    active: production
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: production
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/mealu
+#    username: root
+#    password: keredonaiwakatachiniuta
+#secretKey: someUpdateKeyToChangeWhereYouWantToChangeMenu
+#---
+#spring:
+#  profiles:
+#    active: production
