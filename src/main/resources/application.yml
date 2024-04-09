@@ -1,6 +1,6 @@
 version: v0.0.1
 server:
-  port: 8080
+  port: 1174
 logging:
   pattern:
     dateformat: yyyy-MM-dd
