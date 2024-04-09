@@ -1,12 +1,21 @@
-# 1. 빌드 단계
-FROM gradle:latest AS build
-WORKDIR /app
-COPY . /app
-RUN gradle build
+# Build stage
 
-# 2. 실행 단계
-FROM openjdk:11-jre-slim
+FROM gradle:latest as build
+
 WORKDIR /app
-COPY --from=build /app/build/libs/*.jar /app/app.jar
-EXPOSE 8080
+
+COPY . /app
+
+RUN ["chmod", "+x", "gradlew"]
+
+RUN ["./gradlew", "build", "-x", "test"]
+
+# Production stage
+
+FROM openjdk:11-jre-slim as production
+
+WORKDIR /app
+
+COPY --from=build ./app/build/libs/*.jar /app/app.jar
+
 CMD ["java", "-jar", "app.jar"]
