@@ -22,13 +22,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Profile({"production"})
 public class ProductionDataSourceConfig {
 
-    @Value("${dataSource.username}")
+    @Value("${spring.datasource.username}")
     private String username;
 
-    @Value("${dataSource.password}")
+    @Value("${spring.datasource.password}")
     private String password;
 
-    @Value("${dataSource.url}")
+    @Value("${spring.datasource.url}")
     private String url;
 
     private final static String MYSQL_JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -72,10 +72,10 @@ public class ProductionDataSourceConfig {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "none");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
         properties.setProperty("hibernate.default_catalog", "mealu");
-        properties.setProperty("hibernate.hql.bulk_id_strategy", "org.hibernate.hql.spi.id.inline.Inline.InlineIdsOrClauseBulkIdStrategy");
+//        properties.setProperty("hibernate.hql.bulk_id_strategy", "org.hibernate.hql.spi.id.inline.Inline.InlineIdsOrClauseBulkIdStrategy");
         properties.setProperty("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl");
 
         return properties;

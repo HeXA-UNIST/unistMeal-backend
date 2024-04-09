@@ -77,6 +77,12 @@ public class MealTableService {
         return mealTableRepository.findByMonday(mondayDate);
     }
 
+    public List<MealTable> findAllByDateRange(LocalDate startDate, LocalDate endDate) {
+        // startDate부터 endDate까지의 모든 식단표를 가져와 리스트로 반환.
+
+        return mealTableRepository.findByDateRange(startDate, endDate);
+    }
+
     public LocalDate findMondayDateByLocalDate() {
 
         LocalDate localDate = LocalDate.now();

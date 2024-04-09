@@ -22,4 +22,12 @@ public class MealTableRepositoryImpl implements MealTableRepositoryCustom {
                 .fetch();
     }
 
+    @Override
+    public List<MealTable> findByDateRange(LocalDate startDate, LocalDate endDate) {
+        QMealTable mealTable = QMealTable.mealTable;
+        return queryFactory.selectFrom(mealTable)
+                .where(mealTable.date.between(startDate, endDate))
+                .fetch();
+    }
+
 }
