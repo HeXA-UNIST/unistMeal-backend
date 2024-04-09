@@ -1,6 +1,6 @@
 # Build stage
 
-FROM gradle:latest as build
+FROM openjdk:17-alpine as build
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN ["./gradlew", "build", "-x", "test"]
 
 # Production stage
 
-FROM openjdk:11-jre-slim as production
+FROM openjdk:17-alpine as production
 
 WORKDIR /app
 
