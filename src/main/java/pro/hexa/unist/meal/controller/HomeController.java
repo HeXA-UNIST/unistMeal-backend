@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.hexa.unist.meal.domain.mealTable.domain.MealTable;
 import pro.hexa.unist.meal.service.MealTableService;
+import pro.hexa.unist.meal.service.RestaurantInfoService;
 import pro.hexa.unist.meal.service.dto.MealTableDto;
+import pro.hexa.unist.meal.service.dto.RestaurantInfoDto;
 
 @RestController
 @RequestMapping("")
@@ -18,6 +20,7 @@ import pro.hexa.unist.meal.service.dto.MealTableDto;
 public class HomeController {
 
     private final MealTableService mealTableService;
+    private final RestaurantInfoService restaurantInfoService;
 
     @GetMapping("/health")
     public ResponseEntity<Boolean> healthCheck() {
@@ -25,7 +28,7 @@ public class HomeController {
     }
 
     @GetMapping("/mainpage/data")
-    public ResponseEntity<List<MealTableDto>> menuListResponseEntity(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate){
+    public ResponseEntity<List<MealTableDto>> menuListResponseEntity(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
 
         List<MealTable> mealTables;
 
@@ -35,8 +38,16 @@ public class HomeController {
             mealTables = mealTableService.findAllByMondayDate();
         }
 
-        List<MealTableDto>  mealTableDtos = mealTableService.findByMealTables(mealTables);
+        List<MealTableDto> mealTableDtos = mealTableService.findByMealTables(mealTables);
 
         return new ResponseEntity<>(mealTableDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/mainpage/restaurantInfo")
+    public ResponseEntity<RestaurantInfoDto> restaurantInfoResponseEntity() {
+
+        RestaurantInfoDto restaurantInfo = restaurantInfoService.findAll();
+
+        return new ResponseEntity<>(restaurantInfo, HttpStatus.OK);
     }
 }
