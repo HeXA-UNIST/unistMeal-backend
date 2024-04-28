@@ -33,6 +33,7 @@ jobs:
       - name: Login to kirby server
         id: login-kirby-server
         run: |
+          ssh-keygen -R t.hexa.pro
           ssh -T ${{ secrets.KIRBY_SERVER_USERNAME }}@${{ secrets.KIRBY_SERVER_HOST }} -p ${{ secrets.KIRBY_SERVER_PORT }}
           ${{ secrets.KIRBY_SERVER_PASSWORD }}
           cd unistMeal_backend
