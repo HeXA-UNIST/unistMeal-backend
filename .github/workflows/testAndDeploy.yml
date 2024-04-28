@@ -1,0 +1,56 @@
+name: testAndDeploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Java setup
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "adopt"
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Run test
+        run: ./gradlew test
+      - name: test build
+        run: ./gradlew build -x test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to kirby server
+        id: login-kirby-server
+        run: |
+          ssh ${{ secrets.KIRBY_SERVER_USERNAME }}@${{ secrets.KIRBY_SERVER_HOST }} -p ${{ secrets.KIRBY_SERVER_PORT }}
+          ${{ secrets.KIRBY_SERVER_PASSWORD }}
+          cd unistMeal_backend
+          cd unistMeal-backend
+          git pull
+
+      - name: Stop, and remove current container
+        id: stop-container
+        run: |
+          docker stop unist-meal-backend
+          docker container rm unist-meal-backend
+
+      - name: Build, and tag docker image
+        id: build-image
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: docker build -t unist-meal-backend:$IMAGE_TAG .
+
+      - name: Run docker container
+        id: run-container
+        run: docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul -e secretKey=someUpdateKeyToChangeWhereYouWantToChangeMenu unist-meal-backend:$IMAGE_TAG
