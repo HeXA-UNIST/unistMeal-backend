@@ -18,17 +18,17 @@ spring:
   config:
     activate:
       on-profile: default, development
-secretKey: ${SECRET_KEY}
+secretKey: someUpdateKeyToChangeWhereYouWantToChangeMenu
 ---
 spring:
   config:
     activate:
       on-profile: production
   datasource:
-    url: ${DATABASE_HOST}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-secretKey: ${SECRET_KEY}
+    url: jdbc:mysql://localhost:3306/mealu
+    username: root
+    password: keredonaiwakatachiniuta
+secretKey: someUpdateKeyToChangeWhereYouWantToChangeMenu
 ---
 spring:
   profiles:
