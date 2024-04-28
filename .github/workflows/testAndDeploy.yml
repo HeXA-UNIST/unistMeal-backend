@@ -40,6 +40,11 @@ jobs:
 
       - name: SSH and deploy
         uses: appleboy/ssh-action@master
+        env:
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         with:
           host: ${{ secrets.KIRBY_SERVER_HOST }}
           username: ${{ secrets.KIRBY_SERVER_USERNAME }}
@@ -50,8 +55,8 @@ jobs:
             cd unistMeal_backend
             cd unistMeal-backend
             git pull || exit 1
-            docker stop unist-meal-backend || exit 1
-            docker container rm unist-meal-backend || exit 1
+#            docker stop unist-meal-backend || exit 1
+#            docker container rm unist-meal-backend || exit 1
             docker build -t unist-meal-backend:latest . || exit 1
             docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul -e secretKey=${{ secrets.SECRET_KEY }} unist-meal-backend:latest || exit 1
             exit
