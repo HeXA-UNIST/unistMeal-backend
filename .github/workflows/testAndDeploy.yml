@@ -42,8 +42,7 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          ssh ${{ secrets.KIRBY_SERVER_USERNAME }}@${{ secrets.KIRBY_SERVER_HOST }} -p ${{ secrets.KIRBY_SERVER_PORT }} "
-            ${{ secrets.KIRBY_SERVER_PASSWORD }}
+          ssh ${{ secrets.KIRBY_SERVER_USERNAME }}@${{ secrets.KIRBY_SERVER_HOST }} -p ${{ secrets.KIRBY_SERVER_PORT }} "${{ secrets.KIRBY_SERVER_PASSWORD }}
             cd unistMeal_backend
             cd unistMeal-backend
             git pull || exit 1
