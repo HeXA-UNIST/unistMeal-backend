@@ -40,6 +40,8 @@ jobs:
 
       - name: SSH and deploy
         uses: appleboy/ssh-action@master
+        env:
+          APPLICATION_YML: ${{ secrets.APPLICATION_YML }}
         with:
           host: ${{ secrets.KIRBY_SERVER_HOST }}
           username: ${{ secrets.KIRBY_SERVER_USERNAME }}
@@ -51,8 +53,7 @@ jobs:
             cd unistMeal-backend
             git pull || exit 1
             touch src/main/resources/application.yml
-            echo ${{ secrets.APPLICATION_YML }}
-            echo ${{ secrets.APPLICATION_YML }} >> src/main/resources/application.yml
+            echo $APPLICATION_YML > src/main/resources/application.yml
             docker stop unist-meal-backend || exit 1
             docker container rm unist-meal-backend || exit 1
             docker build -t unist-meal-backend:latest . || exit 1
