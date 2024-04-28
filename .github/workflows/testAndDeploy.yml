@@ -51,8 +51,8 @@ jobs:
             cd unistMeal_backend
             cd unistMeal-backend
             git pull || exit 1
-            docker stop unist-meal-backend || exit 1
-            docker container rm unist-meal-backend || exit 1
-            docker build -t unist-meal-backend:$IMAGE_TAG . || exit 1
-            docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul -e secretKey=${{ secrets.SECRET_KEY }} unist-meal-backend:$IMAGE_TAG || exit 1
+            docker stop unist-meal-backend || exit 2
+            docker container rm unist-meal-backend || exit 3
+            docker build -t unist-meal-backend:$IMAGE_TAG . || exit 4
+            docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul -e secretKey=${{ secrets.SECRET_KEY }} unist-meal-backend:$IMAGE_TAG || exit 5
             exit
