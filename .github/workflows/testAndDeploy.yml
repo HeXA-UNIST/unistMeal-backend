@@ -50,7 +50,7 @@ jobs:
             cd unistMeal_backend
             cd unistMeal-backend
             git pull || exit 1
-            echo ${{ secrets.APPLICATION_YML }} | base64 --decode > ./src/main/resources/application.yml
+            echo ${{ secrets.APPLICATION_YML }} > src/main/resources/application.yml
             docker stop unist-meal-backend || exit 1
             docker container rm unist-meal-backend || exit 1
             docker build -t unist-meal-backend:latest . || exit 1
