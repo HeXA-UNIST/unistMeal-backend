@@ -40,8 +40,6 @@ jobs:
 
       - name: SSH and deploy
         uses: appleboy/ssh-action@master
-        env:
-          IMAGE_TAG: ${{ github.sha }}
         with:
           host: ${{ secrets.KIRBY_SERVER_HOST }}
           username: ${{ secrets.KIRBY_SERVER_USERNAME }}
@@ -54,6 +52,6 @@ jobs:
             git pull || exit 1
             docker stop unist-meal-backend || exit 1
             docker container rm unist-meal-backend || exit 1
-            docker build -t unist-meal-backend:$IMAGE_TAG . || exit 1
-            docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul -e secretKey=${{ secrets.SECRET_KEY }} unist-meal-backend:$IMAGE_TAG || exit 1
+            docker build -t unist-meal-backend:latest . || exit 1
+            docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul -e secretKey=${{ secrets.SECRET_KEY }} unist-meal-backend:latest || exit 1
             exit
