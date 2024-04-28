@@ -42,13 +42,13 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          ssh ${{ secrets.KIRBY_SERVER_USERNAME }}@${{ secrets.KIRBY_SERVER_HOST }} -p ${{ secrets.KIRBY_SERVER_PORT }} "${{ secrets.KIRBY_SERVER_PASSWORD }}
-            cd unistMeal_backend
-            cd unistMeal-backend
-            git pull || exit 1
-            docker stop unist-meal-backend || exit 1
-            docker container rm unist-meal-backend || exit 1
-            docker build -t unist-meal-backend:$IMAGE_TAG . || exit 1
-            docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul -e secretKey=${{ secrets.SECRET_KEY }} unist-meal-backend:$IMAGE_TAG || exit 1
-            exit
-          "
+          ssh ${{ secrets.KIRBY_SERVER_USERNAME }}@${{ secrets.KIRBY_SERVER_HOST }} -p ${{ secrets.KIRBY_SERVER_PORT }}
+          ${{ secrets.KIRBY_SERVER_PASSWORD }}
+          cd unistMeal_backend
+          cd unistMeal-backend
+          git pull || exit 1
+          docker stop unist-meal-backend || exit 1
+          docker container rm unist-meal-backend || exit 1
+          docker build -t unist-meal-backend:$IMAGE_TAG . || exit 1
+          docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul -e secretKey=${{ secrets.SECRET_KEY }} unist-meal-backend:$IMAGE_TAG || exit 1
+          exit
