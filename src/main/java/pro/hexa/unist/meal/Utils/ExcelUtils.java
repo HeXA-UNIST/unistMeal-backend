@@ -18,10 +18,10 @@ import java.util.List;
 @UtilityClass
 public final class ExcelUtils {
 
-    private static final int DormitoryStartRow = 5;
-    private static final int StudentAndProfessorStartRow = 4;
+    private static final int DormitoryAndProfessorStartRow = 5;
+    private static final int StudentStartRow = 4;
 
-    private static final int RestaurantTypeRow = 1;
+    private static final int RestaurantTypeRow = 2;
     private static final int RestaurantTypeCol = 1;
 
     private static int weekNumber = 5;
@@ -46,16 +46,16 @@ public final class ExcelUtils {
         // 엑셀의 첫 번째 Row를 통해 식당 종류를 분류함.
 
         if (parseRestaurantType(worksheet).equals("교직원 식당")) {
-            startRowNum = StudentAndProfessorStartRow; // 교직원 식당 => day 5개
+            startRowNum = DormitoryAndProfessorStartRow; // 교직원 식당 => day 5개
             colList = new ArrayList<>(Arrays.asList(DayType.MON.getColNum(), DayType.TUE.getColNum(), DayType.WED.getColNum()
                     , DayType.THU.getColNum(), DayType.FRI.getColNum()));
         } else if (parseRestaurantType(worksheet).equals("학생 식당")) {
-            startRowNum = StudentAndProfessorStartRow; // 학생 식당 => day 5개
+            startRowNum = StudentStartRow; // 학생 식당 => day 5개
             colList = new ArrayList<>(Arrays.asList(DayType.MON.getColNum(), DayType.TUE.getColNum(), DayType.WED.getColNum()
                     , DayType.THU.getColNum(), DayType.FRI.getColNum()));
         } else {
             // 기숙사 식당
-            startRowNum = DormitoryStartRow; // 기숙사 식당 => day 7개
+            startRowNum = DormitoryAndProfessorStartRow; // 기숙사 식당 => day 7개
             colList = new ArrayList<>(Arrays.asList(DayType.MON.getColNum(), DayType.TUE.getColNum(), DayType.WED.getColNum()
                     , DayType.THU.getColNum(), DayType.FRI.getColNum(), DayType.SAT.getColNum(), DayType.SUN.getColNum()));
             weekNumber = DormitoryWeekNumber;
@@ -108,18 +108,14 @@ public final class ExcelUtils {
     public static String parseRestaurantType(Sheet worksheet) throws UnsupportedEncodingException {
         Row restaurantTypeRow = worksheet.getRow(RestaurantTypeRow);
         Cell cell = restaurantTypeRow.getCell(RestaurantTypeCol);
-        if(cell == null){
-            return "기숙사 식당";
-        }
+
         String restaurantType = excelStringDecodingIntoUtf8(cell);
 
         if (restaurantType.equals("201동 교직원식당 주간식단표")) {
             return "교직원 식당";
-        } else  {
-            return "학생 식당";
-        }
-
-
+        } else if(restaurantType.equals("301동 기숙사식당 식단표")) {
+            return "기숙사 식당";
+        } else return "학생 식당";
     }
 
     private static String excelStringDecodingIntoUtf8(Cell cell) throws UnsupportedEncodingException {
