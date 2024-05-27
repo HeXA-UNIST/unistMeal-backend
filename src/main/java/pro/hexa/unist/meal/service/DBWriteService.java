@@ -25,7 +25,7 @@ import pro.hexa.unist.meal.domain.menu.repository.MenuRepository;
 @RequiredArgsConstructor
 public class DBWriteService {
 
-    private final String KcalRegex = "[0-9]*(,)*[0-9]*(Kcal)";
+    private final String KcalRegex = "[0-9]*(,)*[0-9]*([Kk]cal)";
     private final int DayTypeNum = 0;
     private final int DateNum = 1;
     private final int MenuStartRowNum = 2;
