@@ -18,7 +18,7 @@ spring:
   config:
     activate:
       on-profile: default, development
-secretKey: ${SECRET_KEY}
+    import: optional:file:.env[.properties]
 ---
 spring:
   config:
@@ -28,7 +28,6 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-secretKey: ${SECRET_KEY}
 ---
 spring:
   profiles:

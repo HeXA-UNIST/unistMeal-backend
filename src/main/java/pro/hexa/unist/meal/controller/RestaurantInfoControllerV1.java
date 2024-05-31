@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pro.hexa.unist.meal.domain.restaurantInfo.domain.RestaurantInfo;
-import pro.hexa.unist.meal.domain.restaurantInfo.repository.RestaurantInfoRepository;
+import pro.hexa.unist.meal.domain.restaurantInfo.v1.domain.RestaurantInfoV1;
+import pro.hexa.unist.meal.domain.restaurantInfo.v1.repository.RestaurantInfoRepositoryV1;
 import pro.hexa.unist.meal.service.MainService;
 
 import javax.transaction.Transactional;
@@ -19,10 +19,10 @@ import java.net.URISyntaxException;
 @RequestMapping("/restaurantInfo")
 @RequiredArgsConstructor
 @Transactional
-public class RestaurantInfoController {
+public class RestaurantInfoControllerV1 {
 
-    private static final Logger log = LoggerFactory.getLogger(RestaurantInfoController.class);
-    private final RestaurantInfoRepository repository;
+    private static final Logger log = LoggerFactory.getLogger(RestaurantInfoControllerV1.class);
+    private final RestaurantInfoRepositoryV1 repository;
     private final MainService mainService;
 
     @PostMapping("/dormitoryKorean")
@@ -113,27 +113,27 @@ public class RestaurantInfoController {
 
         mainService.verifySecretKey(theKey);
 
-        RestaurantInfo breakfast;
-        RestaurantInfo lunch;
-        RestaurantInfo dinner;
+        RestaurantInfoV1 breakfast;
+        RestaurantInfoV1 lunch;
+        RestaurantInfoV1 dinner;
 
         if (breakfastIsOpened != null) {
             String[] parsedBreakfastStartTime = breakfastStartTime.split(":");
             String[] parsedBreakfastEndTime = breakfastEndTime.split(":");
-            breakfast = new RestaurantInfo(restaurantName, breakfastPrice, true, Integer.parseInt(parsedBreakfastStartTime[0]), Integer.parseInt(parsedBreakfastStartTime[1]), Integer.parseInt(parsedBreakfastEndTime[0]), Integer.parseInt(parsedBreakfastEndTime[1]), "breakfast");
-        } else breakfast = new RestaurantInfo(restaurantName, false, "breakfast");
+            breakfast = new RestaurantInfoV1(restaurantName, breakfastPrice, true, Integer.parseInt(parsedBreakfastStartTime[0]), Integer.parseInt(parsedBreakfastStartTime[1]), Integer.parseInt(parsedBreakfastEndTime[0]), Integer.parseInt(parsedBreakfastEndTime[1]), "breakfast");
+        } else breakfast = new RestaurantInfoV1(restaurantName, false, "breakfast");
 
         if (lunchIsOpened != null) {
             String[] parsedLunchStartTime = lunchStartTime.split(":");
             String[] parsedLunchEndTime = lunchEndTime.split(":");
-            lunch = new RestaurantInfo(restaurantName, lunchPrice, lunchIsOpened, Integer.parseInt(parsedLunchStartTime[0]), Integer.parseInt(parsedLunchStartTime[1]), Integer.parseInt(parsedLunchEndTime[0]), Integer.parseInt(parsedLunchEndTime[1]), "lunch");
-        } else lunch = new RestaurantInfo(restaurantName, false, "lunch");
+            lunch = new RestaurantInfoV1(restaurantName, lunchPrice, lunchIsOpened, Integer.parseInt(parsedLunchStartTime[0]), Integer.parseInt(parsedLunchStartTime[1]), Integer.parseInt(parsedLunchEndTime[0]), Integer.parseInt(parsedLunchEndTime[1]), "lunch");
+        } else lunch = new RestaurantInfoV1(restaurantName, false, "lunch");
 
         if (dinnerIsOpened != null) {
             String[] parsedDinnerStartTime = dinnerStartTime.split(":");
             String[] parsedDinnerEndTime = dinnerEndTime.split(":");
-            dinner = new RestaurantInfo(restaurantName, dinnerPrice, dinnerIsOpened, Integer.parseInt(parsedDinnerStartTime[0]), Integer.parseInt(parsedDinnerStartTime[1]), Integer.parseInt(parsedDinnerEndTime[0]), Integer.parseInt(parsedDinnerEndTime[1]), "dinner");
-        } else dinner = new RestaurantInfo(restaurantName, false, "dinner");
+            dinner = new RestaurantInfoV1(restaurantName, dinnerPrice, dinnerIsOpened, Integer.parseInt(parsedDinnerStartTime[0]), Integer.parseInt(parsedDinnerStartTime[1]), Integer.parseInt(parsedDinnerEndTime[0]), Integer.parseInt(parsedDinnerEndTime[1]), "dinner");
+        } else dinner = new RestaurantInfoV1(restaurantName, false, "dinner");
 
         repository.deleteByRestaurantName(restaurantName);
         repository.save(breakfast);

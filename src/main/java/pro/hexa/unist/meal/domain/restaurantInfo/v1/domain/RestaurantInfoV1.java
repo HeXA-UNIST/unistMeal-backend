@@ -1,4 +1,4 @@
-package pro.hexa.unist.meal.domain.restaurantInfo.domain;
+package pro.hexa.unist.meal.domain.restaurantInfo.v1.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class RestaurantInfo extends AbstractEntity {
+public class RestaurantInfoV1 extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,7 +23,7 @@ public class RestaurantInfo extends AbstractEntity {
     private Integer endTimeMinute;
     private String mealType;
 
-    public RestaurantInfo(String restaurantName, Integer price, Boolean isOpened, Integer startTimeHour, Integer startTimeMinute, Integer endTimeHour, Integer endTimeMinute, String mealType) {
+    public RestaurantInfoV1(String restaurantName, Integer price, Boolean isOpened, Integer startTimeHour, Integer startTimeMinute, Integer endTimeHour, Integer endTimeMinute, String mealType) {
         this.restaurantName = restaurantName;
         this.price = price;
         this.isOpened = isOpened;
@@ -34,7 +34,7 @@ public class RestaurantInfo extends AbstractEntity {
         this.mealType = mealType;
     }
 
-    public RestaurantInfo(String restaurantName, Boolean isOpened, String mealType) {
+    public RestaurantInfoV1(String restaurantName, Boolean isOpened, String mealType) {
         this.restaurantName = restaurantName;
         this.isOpened = isOpened;
         this.mealType = mealType;

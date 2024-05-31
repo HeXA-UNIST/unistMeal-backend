@@ -1,16 +1,16 @@
-package pro.hexa.unist.meal.domain.restaurantInfo.repository;
+package pro.hexa.unist.meal.domain.restaurantInfo.v1.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import pro.hexa.unist.meal.domain.restaurantInfo.domain.QRestaurantInfo;
+import pro.hexa.unist.meal.domain.restaurantInfo.v1.domain.QRestaurantInfoV1;
 
 @RequiredArgsConstructor
-public class RestaurantInfoRepositoryImpl implements RestaurantInfoRepositoryCustom {
+public class RestaurantInfoRepositoryImplV1 implements RestaurantInfoRepositoryCustomV1 {
     private final JPAQueryFactory queryFactory;
 
     @Override
     public void deleteByRestaurantName(String restaurantName) {
-        QRestaurantInfo restaurantInfo = QRestaurantInfo.restaurantInfo;
+        QRestaurantInfoV1 restaurantInfo = QRestaurantInfoV1.restaurantInfoV1;
         queryFactory.delete(restaurantInfo)
                 .where(restaurantInfo.restaurantName.eq(restaurantName))
                 .execute();

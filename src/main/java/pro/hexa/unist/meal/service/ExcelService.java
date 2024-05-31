@@ -27,7 +27,7 @@ public class ExcelService {
 
     private final DBWriteService dbWriteService;
 
-    @Value("${secretKey}")
+    @Value("${SECRET_KEY}")
     String secretKey;
 
     @Transactional

@@ -14,11 +14,13 @@ import pro.hexa.unist.meal.service.Exceptions.BadRequestType;
 @RequiredArgsConstructor
 public class MainService {
 
-    @Value("${secretKey}")
+    @Value("${SECRET_KEY}")
     String secretKey;
 
     public void verifySecretKey(String key) {
         if (!secretKey.equals(key)) {
+            log.error("{}", key);
+            log.error("{}", secretKey);
             throw new BadRequestException(BadRequestType.WRONG_SECRET_KEY);
         }
     }

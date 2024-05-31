@@ -118,7 +118,7 @@
   <hr class="my-5">
 
   <h1 class="text-center mb-4">
-    식당 정보 업로드
+    식당 정보 업로드(V1)
   </h1>
 
   <div class="row">
@@ -228,6 +228,294 @@
       <div class="card p-4">
         <h2>교직원 식당</h2>
         <form action="/restaurantInfo/professor" method="post">
+          <div class="form-group">
+            <label>아침:</label>
+            <input type="text" class="form-control" name="breakfastStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="breakfastIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>점심:</label>
+            <input type="text" class="form-control" name="lunchStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="lunchIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>저녁:</label>
+            <input type="text" class="form-control" name="dinnerStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="dinnerIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <h1 class="text-center mb-4">
+    식당 정보 업로드(V2, 평일)
+  </h1>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card p-4">
+        <h2>기숙사 식당(한식)</h2>
+        <form action="/restaurantInfo/weekDay/dormitoryKorean" method="post">
+          <div class="form-group">
+            <label>아침:</label>
+            <input type="text" class="form-control" name="breakfastStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="breakfastIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>점심:</label>
+            <input type="text" class="form-control" name="lunchStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="lunchIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>저녁:</label>
+            <input type="text" class="form-control" name="dinnerStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="dinnerIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-4">
+        <h2>기숙사 식당(할랄)</h2>
+        <form action="/restaurantInfo/weekDay/dormitoryHalal" method="post">
+          <div class="form-group">
+            <label>아침:</label>
+            <input type="text" class="form-control" name="breakfastStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="breakfastIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>점심:</label>
+            <input type="text" class="form-control" name="lunchStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="lunchIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>저녁:</label>
+            <input type="text" class="form-control" name="dinnerStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="dinnerIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-4">
+        <h2>학생 식당</h2>
+        <form action="/restaurantInfo/weekDay/student" method="post">
+          <div class="form-group">
+            <label>아침:</label>
+            <input type="text" class="form-control" name="breakfastStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="breakfastIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>점심:</label>
+            <input type="text" class="form-control" name="lunchStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="lunchIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>저녁:</label>
+            <input type="text" class="form-control" name="dinnerStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="dinnerIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-4">
+        <h2>교직원 식당</h2>
+        <form action="/restaurantInfo/weekDay/professor" method="post">
+          <div class="form-group">
+            <label>아침:</label>
+            <input type="text" class="form-control" name="breakfastStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="breakfastIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>점심:</label>
+            <input type="text" class="form-control" name="lunchStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="lunchIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>저녁:</label>
+            <input type="text" class="form-control" name="dinnerStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="dinnerIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <h1 class="text-center mb-4">
+    식당 정보 업로드(V2, 주말)
+  </h1>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card p-4">
+        <h2>기숙사 식당(한식)</h2>
+        <form action="/restaurantInfo/weekEnd/dormitoryKorean" method="post">
+          <div class="form-group">
+            <label>아침:</label>
+            <input type="text" class="form-control" name="breakfastStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="breakfastIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>점심:</label>
+            <input type="text" class="form-control" name="lunchStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="lunchIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>저녁:</label>
+            <input type="text" class="form-control" name="dinnerStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="dinnerIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-4">
+        <h2>기숙사 식당(할랄)</h2>
+        <form action="/restaurantInfo/weekEnd/dormitoryHalal" method="post">
+          <div class="form-group">
+            <label>아침:</label>
+            <input type="text" class="form-control" name="breakfastStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="breakfastIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>점심:</label>
+            <input type="text" class="form-control" name="lunchStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="lunchIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>저녁:</label>
+            <input type="text" class="form-control" name="dinnerStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="dinnerIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-4">
+        <h2>학생 식당</h2>
+        <form action="/restaurantInfo/weekEnd/student" method="post">
+          <div class="form-group">
+            <label>아침:</label>
+            <input type="text" class="form-control" name="breakfastStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="breakfastPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="breakfastIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>점심:</label>
+            <input type="text" class="form-control" name="lunchStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="lunchPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="lunchIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>저녁:</label>
+            <input type="text" class="form-control" name="dinnerStartTime" placeholder="시작시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerEndTime" placeholder="종료시간(hh:mm)">
+            <input type="text" class="form-control" name="dinnerPrice" placeholder="가격">
+            <input type="checkbox" class="form-control" name="dinnerIsOpened" checked>
+          </div>
+          <div class="form-group">
+            <label>key:</label>
+            <input type="text" class="form-control" name="theKey">
+          </div>
+          <button type="submit" class="btn" style="background-color: #00CD80; color: white">업로드</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-4">
+        <h2>교직원 식당</h2>
+        <form action="/restaurantInfo/weekEnd/professor" method="post">
           <div class="form-group">
             <label>아침:</label>
             <input type="text" class="form-control" name="breakfastStartTime" placeholder="시작시간(hh:mm)">

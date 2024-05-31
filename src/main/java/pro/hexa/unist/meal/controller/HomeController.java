@@ -9,9 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.hexa.unist.meal.domain.mealTable.domain.MealTable;
 import pro.hexa.unist.meal.service.MealTableService;
-import pro.hexa.unist.meal.service.RestaurantInfoService;
+import pro.hexa.unist.meal.service.RestaurantInfoServiceV1;
+import pro.hexa.unist.meal.service.RestaurantInfoServiceV2WeekDay;
+import pro.hexa.unist.meal.service.RestaurantInfoServiceV2WeekEnd;
 import pro.hexa.unist.meal.service.dto.MealTableDto;
-import pro.hexa.unist.meal.service.dto.RestaurantInfoDto;
+import pro.hexa.unist.meal.service.dto.RestaurantInfoDtoV1;
+import pro.hexa.unist.meal.service.dto.RestaurantInfoDtoV2;
 
 @RestController
 @RequestMapping("")
@@ -20,7 +23,9 @@ import pro.hexa.unist.meal.service.dto.RestaurantInfoDto;
 public class HomeController {
 
     private final MealTableService mealTableService;
-    private final RestaurantInfoService restaurantInfoService;
+    private final RestaurantInfoServiceV1 restaurantInfoServiceV1;
+    private final RestaurantInfoServiceV2WeekDay restaurantInfoServiceV2WeekDay;
+    private final RestaurantInfoServiceV2WeekEnd restaurantInfoServiceV2WeekEnd;
 
     @GetMapping("/health")
     public ResponseEntity<Boolean> healthCheck() {
@@ -44,9 +49,25 @@ public class HomeController {
     }
 
     @GetMapping("/mainpage/restaurantInfo")
-    public ResponseEntity<RestaurantInfoDto> restaurantInfoResponseEntity() {
+    public ResponseEntity<RestaurantInfoDtoV1> restaurantInfoV1ResponseEntity() {
 
-        RestaurantInfoDto restaurantInfo = restaurantInfoService.findAll();
+        RestaurantInfoDtoV1 restaurantInfo = restaurantInfoServiceV1.findAll();
+
+        return new ResponseEntity<>(restaurantInfo, HttpStatus.OK);
+    }
+
+    @GetMapping("/mainpage/restaurantInfo/weekDay")
+    public ResponseEntity<RestaurantInfoDtoV2> restaurantInfoV1WeekDayResponseEntity() {
+
+        RestaurantInfoDtoV2 restaurantInfo = restaurantInfoServiceV2WeekDay.findAllWeekDay();
+
+        return new ResponseEntity<>(restaurantInfo, HttpStatus.OK);
+    }
+
+    @GetMapping("/mainpage/restaurantInfo/weekEnd")
+    public ResponseEntity<RestaurantInfoDtoV2> restaurantInfoV1WeekEndResponseEntity() {
+
+        RestaurantInfoDtoV2 restaurantInfo = restaurantInfoServiceV2WeekEnd.findAllWeekEnd();
 
         return new ResponseEntity<>(restaurantInfo, HttpStatus.OK);
     }
