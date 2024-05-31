@@ -40,20 +40,21 @@ jobs:
 
       - name: SSH and deploy
         uses: appleboy/ssh-action@master
-        env:
-          APPLICATION_YML: ${{ secrets.APPLICATION_YML }}
         with:
           host: ${{ secrets.KIRBY_SERVER_HOST }}
           username: ${{ secrets.KIRBY_SERVER_USERNAME }}
           password: ${{ secrets.KIRBY_SERVER_PASSWORD }}
           port: ${{ secrets.KIRBY_SERVER_PORT }}
           script: |
-            cd old
-            cd unistMeal_backend
-            cd unistMeal-backend
+            cd old/unistMeal_backend/unistMeal-backend
             git pull || exit 1
             docker stop unist-meal-backend || exit 1
             docker container rm unist-meal-backend || exit 1
             docker build -t unist-meal-backend:latest . || exit 1
-            docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul -e secretKey=${{ secrets.SECRET_KEY }} unist-meal-backend:latest || exit 1
+            docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul \
+              -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+              -e DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }} \
+              -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+              -e SECRET_KEY=${{ secrets.SECRET_KEY }} \
+              unist-meal-backend:latest || exit 1
             exit
