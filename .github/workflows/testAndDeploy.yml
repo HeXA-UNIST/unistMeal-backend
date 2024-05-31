@@ -50,6 +50,7 @@ jobs:
             git pull || exit 1
             docker stop unist-meal-backend || exit 1
             docker container rm unist-meal-backend || exit 1
+            docker rmi unist-meal-backend:latest || exit 1
             docker build -t unist-meal-backend:latest . || exit 1
             docker run -d --name unist-meal-backend --net host -e TZ=Asia/Seoul \
               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
