@@ -53,7 +53,7 @@ public final class ExcelUtils {
         } else if (parseRestaurantType(worksheet).equals("학생 식당")) {
             startRowNum = StudentStartRow; // 학생 식당 => day 5개
             colList = new ArrayList<>(Arrays.asList(DayType.MON.getColNum(), DayType.TUE.getColNum(), DayType.WED.getColNum()
-                    , DayType.THU.getColNum(), DayType.FRI.getColNum()));
+                    , DayType.THU.getColNum(), DayType.FRI.getColNum(), DayType.SAT.getColNum()));
             weekNumber = StudentWeekNumber;
         } else {
             // 기숙사 식당
