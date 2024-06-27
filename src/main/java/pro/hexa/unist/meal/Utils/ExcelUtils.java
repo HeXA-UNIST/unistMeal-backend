@@ -19,7 +19,7 @@ import java.util.List;
 public final class ExcelUtils {
 
     private static final int DormitoryAndProfessorStartRow = 5;
-    private static final int StudentStartRow = 4;
+    private static final int StudentStartRow = 5;
 
     private static final int RestaurantTypeRow = 2;
     private static final int RestaurantTypeCol = 1;
