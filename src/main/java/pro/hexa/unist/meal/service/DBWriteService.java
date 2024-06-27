@@ -128,14 +128,15 @@ public class DBWriteService {
 //                        dormitoryType = DormitoryType.HALAL;
                         mealType = MealType.values()[2];
                         dormitoryType = DormitoryType.KOREAN;
-                    }
-//                    } else if (mealTypeIdx == 3) {
+                    } else if (mealTypeIdx == 3) {
 //                        mealType = MealType.values()[2];
 //                        dormitoryType = DormitoryType.KOREAN;
-//                    } else if (mealTypeIdx == 4) {
-//                        mealType = MealType.values()[2];
-//                        dormitoryType = DormitoryType.HALAL;
-//                    }
+                        mealType = MealType.values()[2];
+                        dormitoryType = DormitoryType.HALAL;
+                    } else if (mealTypeIdx == 4) {
+                        mealType = MealType.values()[2];
+                        dormitoryType = DormitoryType.HALAL;
+                    }
                 } else {
                     mealType = MealType.values()[mealTypeIdx];
                 }
