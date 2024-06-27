@@ -103,7 +103,7 @@ public class DBWriteService {
             // 다음 반복문을 통해서 기숙사 식당이라면 3개의 mealTable을 repository에 넣고, 나머지 식당은 2개의 mealTable을 repository에 넣는다.
             int sizeOfRows = rows.size();
             int r = MenuStartRowNum;
-            int mealTypeIdx = restaurantType.equals("기숙사 식당") || restaurantType.equals("학생 식당") ? Breakfast : Lunch;
+            int mealTypeIdx = restaurantType.equals("기숙사 식당") ? Breakfast : Lunch;
 
 
 
@@ -124,15 +124,11 @@ public class DBWriteService {
                         mealType = MealType.values()[1];
                         dormitoryType = DormitoryType.KOREAN;
                     } else if (mealTypeIdx == 2) {
-//                        mealType = MealType.values()[1];
-//                        dormitoryType = DormitoryType.HALAL;
+                        mealType = MealType.values()[1];
+                        dormitoryType = DormitoryType.HALAL;
+                    } else if (mealTypeIdx == 3) {
                         mealType = MealType.values()[2];
                         dormitoryType = DormitoryType.KOREAN;
-                    } else if (mealTypeIdx == 3) {
-//                        mealType = MealType.values()[2];
-//                        dormitoryType = DormitoryType.KOREAN;
-                        mealType = MealType.values()[2];
-                        dormitoryType = DormitoryType.HALAL;
                     } else if (mealTypeIdx == 4) {
                         mealType = MealType.values()[2];
                         dormitoryType = DormitoryType.HALAL;
