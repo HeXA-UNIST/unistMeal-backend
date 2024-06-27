@@ -53,6 +53,7 @@ public class MealTableService {
             List<Menu> menus = distinctMealTableAndMenuRelationships.stream()
                 .map(MealTableAndMenuRelationship::getMenu)
                 .collect(Collectors.toList());
+            if (menus.size() <= 1) continue;
             // 모은 정보를 바탕으로 전달할 한 개의 정보 만듬. 이걸 통신으로 넘길 것.
             MealTableDto dto = MealTableDto.builder()
                 .mealType(mealTable.getMealType())

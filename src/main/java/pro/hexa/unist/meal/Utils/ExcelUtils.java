@@ -25,7 +25,7 @@ public final class ExcelUtils {
     private static final int RestaurantTypeCol = 1;
 
     private static int weekNumber = 5;
-    private static final int DormitoryWeekNumber = 7;
+    private static final int DormitoryAndStudentWeekNumber = 7;
 
 
     public static List<List<String>> parse(Sheet worksheet) throws UnsupportedEncodingException {
@@ -53,12 +53,13 @@ public final class ExcelUtils {
             startRowNum = StudentStartRow; // 학생 식당 => day 5개
             colList = new ArrayList<>(Arrays.asList(DayType.MON.getColNum(), DayType.TUE.getColNum(), DayType.WED.getColNum()
                     , DayType.THU.getColNum(), DayType.FRI.getColNum()));
+            weekNumber = DormitoryAndStudentWeekNumber;
         } else {
             // 기숙사 식당
             startRowNum = DormitoryAndProfessorStartRow; // 기숙사 식당 => day 7개
             colList = new ArrayList<>(Arrays.asList(DayType.MON.getColNum(), DayType.TUE.getColNum(), DayType.WED.getColNum()
                     , DayType.THU.getColNum(), DayType.FRI.getColNum(), DayType.SAT.getColNum(), DayType.SUN.getColNum()));
-            weekNumber = DormitoryWeekNumber;
+            weekNumber = DormitoryAndStudentWeekNumber;
 
         }
         // 일주일 == 7 days를 만든다.
